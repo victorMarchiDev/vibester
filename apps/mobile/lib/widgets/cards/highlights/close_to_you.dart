@@ -33,6 +33,7 @@ class _CloseToYouState extends State<CloseToYou> {
     });
 
     if (latitudeAtual == null || longitudeAtual == null) {
+      if (!mounted) return;
       setState(() {
         _erro =
             'Não foi possível acessar sua localização. Verifique se o GPS '
@@ -47,17 +48,21 @@ class _CloseToYouState extends State<CloseToYou> {
         latitude: latitudeAtual!,
         longitude: longitudeAtual!,
       );
+      if (!mounted) return;
       setState(() {
         _places = places;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _erro = 'Não foi possível carregar os estabelecimentos próximos.';
       });
     } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
