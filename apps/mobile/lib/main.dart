@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/models/event/event_model.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/service/api_client.dart';
 import 'package:mobile/service/auth_storage_service.dart';
+import 'package:mobile/service/user/user_service.dart';
 import 'package:mobile/models/highlights/highlight_model.dart';
 import 'package:mobile/models/place/place_model.dart';
 import 'package:mobile/providers/events/events_list_provider.dart';
@@ -103,19 +107,82 @@ void main() async {
   runApp(MyApp(savedUser: savedUser));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final UserModel? savedUser;
 
   const MyApp({super.key, this.savedUser});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  final AppLinks _appLinks = AppLinks();
+  final UserService _userService = UserService();
+  StreamSubscription<Uri>? _linkSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _initDeepLinks();
+  }
+
+  Future<void> _initDeepLinks() async {
+    final initialUri = await _appLinks.getInitialLink();
+    if (initialUri != null) _handleUri(initialUri);
+
+    _linkSubscription = _appLinks.uriLinkStream.listen(_handleUri);
+  }
+
+  // Espera vibester://profile/{token}, gerado por
+  // UserService.generateShareLink no backend.
+  Future<void> _handleUri(Uri uri) async {
+    if (uri.scheme != 'vibester' || uri.host != 'profile') return;
+    final token = uri.pathSegments.isNotEmpty ? uri.pathSegments.first : null;
+    if (token == null) return;
+
+    final navigator = _navigatorKey.currentState;
+    if (navigator == null) return;
+
+    try {
+      final resolvedAccountId = await _userService.resolveShareToken(token);
+      if (resolvedAccountId == null) {
+        ScaffoldMessenger.of(navigator.context).showSnackBar(
+          const SnackBar(
+            content: Text('Este link de compartilhamento expirou ou é inválido.'),
+          ),
+        );
+        return;
+      }
+
+      final currentUserId = navigator.context.read<UserProvider>().user?.accountId;
+      if (resolvedAccountId == currentUserId) {
+        navigator.pushNamed(AppRoutes.profile);
+      } else {
+        navigator.pushNamed(AppRoutes.otherProfile, arguments: resolvedAccountId);
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        navigator.context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final userProvider = UserProvider();
     final notificationProvider = NotificationProvider();
-    if (savedUser != null) {
-      userProvider.setUser(savedUser!);
-      if (savedUser!.accountId != null) {
-        notificationProvider.fetchUnreadCount(savedUser!.accountId!);
+    if (widget.savedUser != null) {
+      userProvider.setUser(widget.savedUser!);
+      if (widget.savedUser!.accountId != null) {
+        notificationProvider.fetchUnreadCount(widget.savedUser!.accountId!);
       }
     }
 
@@ -128,11 +195,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: notificationProvider),
       ],
       child: MaterialApp(
+        navigatorKey: _navigatorKey,
         debugShowCheckedModeBanner: false,
         //Chama a classe da propriedade de scroll
         scrollBehavior: _NoBounceScrollBehavior(),
         theme: AppTheme.light,
-        initialRoute: savedUser != null
+        initialRoute: widget.savedUser != null
             ? AppRoutes.home
             : AppRoutes.initialScreen,
         onGenerateRoute: (settings) {

@@ -18,6 +18,9 @@ class ApiEndpoints {
       '$baseUrl/user/users/profile/followers/decrease';
   static String checkFollowing(String followerId, String followingId) =>
       '$baseUrl/user/users/$followerId/follows/$followingId';
+  static String generateShareLink() => '$baseUrl/user/users/share';
+  static String resolveShareLink(String token) =>
+      '$baseUrl/user/users/share/$token';
 
   // Events
   static String events() => '$baseUrl/event/events';

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
@@ -65,6 +66,25 @@ class UserProfileScreenState extends State<UserProfileScreen>
       }
     } catch (_) {
       // Mantém os dados atuais em tela caso a atualização falhe
+    }
+  }
+
+  Future<void> _shareProfile() async {
+    final accountId = context.read<UserProvider>().user?.accountId;
+    if (accountId == null) return;
+
+    try {
+      final shareUrl = await _userService.generateShareLink(accountId);
+      await Share.share(
+        'Confira meu perfil no Vibester: $shareUrl',
+        subject: 'Meu perfil no Vibester',
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 
@@ -330,21 +350,34 @@ class UserProfileScreenState extends State<UserProfileScreen>
 
                         SizedBox(width: 14),
 
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                          ),
-                          height: 30,
-                          width: 150,
-                          child: Center(
-                            child: Text(
-                              'Compartilhar perfil',
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                        Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(50),
+                          child: InkWell(
+                            onTap: _shareProfile,
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
                               ),
-                              textAlign: TextAlign.center,
+                              height: 30,
+                              width: 150,
+                              child: Center(
+                                child: Text(
+                                  'Compartilhar perfil',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
                           ),
                         ),
