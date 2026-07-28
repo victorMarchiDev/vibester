@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/service/user/user_service.dart';
@@ -110,6 +111,22 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
       }
     } finally {
       if (mounted) setState(() => _loadingFollow = false);
+    }
+  }
+
+  Future<void> _shareProfile(UserModel otherUser) async {
+    try {
+      final shareUrl = await _userService.generateShareLink(widget.accountId);
+      await Share.share(
+        'Confira o perfil de ${otherUser.nome} no Vibester: $shareUrl',
+        subject: 'Perfil no Vibester',
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 
@@ -370,6 +387,29 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                           },
                         ),
                         SizedBox(width: 14),
+                        Material(
+                          color: Colors.transparent,
+                          shape: const CircleBorder(),
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () => _shareProfile(otherUser),
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: const BoxDecoration(
+                                border: Border.fromBorderSide(
+                                  BorderSide(color: Colors.white, width: 1),
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.ios_share,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
 
