@@ -10,6 +10,6 @@ export default defineConfig({
     reporters: ["verbose"],
     // Testes de integração reais rodam em sequência para evitar conflitos de dados
     pool: "forks",
-    poolOptions: { forks: { singleFork: true } },
+    fileParallelism: false,
   },
 });
