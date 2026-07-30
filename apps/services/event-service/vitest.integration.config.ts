@@ -5,7 +5,6 @@ export default defineConfig({
     globals: true,
     environment: "node",
     include: ["tests/integration-real/**/*.spec.ts"],
-    setupFiles: ["tests/setup/vitest.integration.setup.ts"],
     testTimeout: 30000,
     hookTimeout: 30000,
     reporters: ["verbose"],
