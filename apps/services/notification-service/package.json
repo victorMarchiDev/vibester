@@ -9,7 +9,11 @@
     "start": "node dist/server.js",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",
@@ -26,13 +30,16 @@
     "kafkajs": "^2.2.4",
     "nodemailer": "^6.9.16",
     "pg": "^8.20.0",
+    "prisma": "^7.8.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^26.0.1",
     "@types/nodemailer": "^6.4.17",
-    "prisma": "^7.8.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "ioredis-mock": "^8.13.1",
     "tsx": "^4.22.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   }
 }
