@@ -126,7 +126,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
             color: context.colors.navy,
             boxShadow: [
               BoxShadow(
-                color: Colors.white.withOpacity(0.1),
+                color: context.colors.border.withOpacity(0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 3),
               ),
@@ -158,7 +158,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                 child: Text(
                   user.nomeUsuario,
                   style: GoogleFonts.inter(
-                    color: Colors.white,
+                    color: context.colors.textPrimary,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -204,7 +204,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         child: Text(
                           '${user.nome}',
                           style: GoogleFonts.inter(
-                            color: Colors.white,
+                            color: context.colors.textPrimary,
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
                           ),
@@ -233,7 +233,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                     Text(
                       user.bio,
                       style: GoogleFonts.inter(
-                        color: Colors.white70,
+                        color: context.colors.textSecondary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -248,7 +248,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             Text(
                               user.seguidores.toString(),
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -256,7 +256,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             Text(
                               'SEGUIDORES',
                               style: GoogleFonts.inter(
-                                color: Colors.white70,
+                                color: context.colors.textSecondary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -271,7 +271,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             Text(
                               user.seguindo.toString(),
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -279,7 +279,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             Text(
                               'SEGUINDO',
                               style: GoogleFonts.inter(
-                                color: Colors.white70,
+                                color: context.colors.textSecondary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -294,7 +294,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             Text(
                               user.eventosVisitados.toString(),
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -302,7 +302,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             Text(
                               'EVENTOS',
                               style: GoogleFonts.inter(
-                                color: Colors.white70,
+                                color: context.colors.textSecondary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -328,7 +328,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Colors.white,
+                                  color: context.colors.textPrimary,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(50),
@@ -339,7 +339,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                                 child: Text(
                                   'Configurações',
                                   style: GoogleFonts.inter(
-                                    color: Colors.white,
+                                    color: context.colors.textPrimary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -359,7 +359,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Colors.white,
+                                  color: context.colors.textPrimary,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.all(
@@ -372,7 +372,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                                 child: Text(
                                   'Compartilhar perfil',
                                   style: GoogleFonts.inter(
-                                    color: Colors.white,
+                                    color: context.colors.textPrimary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   textAlign: TextAlign.center,
@@ -394,8 +394,8 @@ class UserProfileScreenState extends State<UserProfileScreen>
                 delegate: _StickyTabBarDelegate(
                   TabBar(
                     controller: _tabController,
-                    unselectedLabelColor: Colors.white54,
-                    labelColor: Colors.white,
+                    unselectedLabelColor: context.colors.textMuted,
+                    labelColor: context.colors.textPrimary,
                     dividerColor: Colors.transparent,
                     indicatorColor: context.colors.brasa,
                     indicatorPadding: EdgeInsets.symmetric(
@@ -435,10 +435,14 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         ),
                       ),
                       Center(
-                        child: FavoritePlacesScreen(showRefreshIndicator: false),
+                        child: FavoritePlacesScreen(
+                          showRefreshIndicator: false,
+                        ),
                       ),
                       Center(
-                        child: FavoritesEventsScreen(showRefreshIndicator: false),
+                        child: FavoritesEventsScreen(
+                          showRefreshIndicator: false,
+                        ),
                       ),
                     ],
                   ),
