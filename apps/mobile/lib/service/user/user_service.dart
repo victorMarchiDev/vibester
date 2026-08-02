@@ -199,7 +199,8 @@ class UserService {
       );
       return response.data['shareUrl'] as String;
     } on DioException catch (e) {
-      final mensagem = e.response?.data?['message'] ??
+      final mensagem =
+          e.response?.data?['message'] ??
           'Erro ao gerar link de compartilhamento';
       throw Exception(mensagem);
     }
@@ -215,7 +216,8 @@ class UserService {
       return response.data['accountId'] as String?;
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) return null;
-      final mensagem = e.response?.data?['message'] ??
+      final mensagem =
+          e.response?.data?['message'] ??
           'Erro ao abrir link de compartilhamento';
       throw Exception(mensagem);
     }
