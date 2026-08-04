@@ -142,6 +142,9 @@ jobs:
     needs: build-and-push
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Configure kubeconfig
         run: |
           mkdir -p $HOME/.kube
@@ -153,6 +156,7 @@ jobs:
 
       - name: Deploy
         run: |
+          kubectl apply -f apps/services/notification-service/k8s/
           kubectl set image deployment/notification-service \
             notification-service=ghcr.io/${{ env.OWNER_LC }}/vibester-notification-service:${{ github.sha }}
           kubectl rollout status deployment/notification-service --timeout=300s || {
