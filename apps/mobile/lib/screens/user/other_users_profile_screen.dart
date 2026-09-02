@@ -155,12 +155,12 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
             backgroundColor: context.colors.noturno,
             appBar: AppBar(
               backgroundColor: context.colors.navy,
-              foregroundColor: Colors.white,
+              foregroundColor: context.colors.textPrimary,
             ),
             body: Center(
               child: Text(
                 snapshot.error.toString(),
-                style: const TextStyle(color: Colors.white54),
+                style: TextStyle(color: context.colors.textMuted),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -177,7 +177,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
       appBar: AppBar(
         actions: const [SizedBox(width: 48)],
         backgroundColor: context.colors.navy,
-        foregroundColor: Colors.white,
+        foregroundColor: context.colors.textPrimary,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         flexibleSpace: Container(
@@ -185,7 +185,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
             color: context.colors.navy,
             boxShadow: [
               BoxShadow(
-                color: Colors.white.withOpacity(0.1),
+                color: context.colors.border.withOpacity(0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 3),
               ),
@@ -214,7 +214,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
               Text(
                 otherUser.nomeUsuario,
                 style: GoogleFonts.inter(
-                  color: Colors.white,
+                  color: context.colors.textPrimary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -262,7 +262,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                         child: Text(
                           otherUser.nome,
                           style: GoogleFonts.inter(
-                            color: Colors.white,
+                            color: context.colors.textPrimary,
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
                           ),
@@ -291,7 +291,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                     Text(
                       otherUser.bio,
                       style: GoogleFonts.inter(
-                        color: Colors.white70,
+                        color: context.colors.textSecondary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -306,7 +306,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             Text(
                               otherUser.seguidores.toString(),
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -314,7 +314,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             Text(
                               'SEGUIDORES',
                               style: GoogleFonts.inter(
-                                color: Colors.white70,
+                                color: context.colors.textSecondary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -329,7 +329,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             Text(
                               otherUser.seguindo.toString(),
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -337,7 +337,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             Text(
                               'SEGUINDO',
                               style: GoogleFonts.inter(
-                                color: Colors.white70,
+                                color: context.colors.textSecondary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -352,7 +352,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             Text(
                               otherUser.eventosVisitados.toString(),
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
@@ -360,7 +360,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             Text(
                               'EVENTOS',
                               style: GoogleFonts.inter(
-                                color: Colors.white70,
+                                color: context.colors.textSecondary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -396,15 +396,18 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                             child: Container(
                               height: 40,
                               width: 40,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 border: Border.fromBorderSide(
-                                  BorderSide(color: Colors.white, width: 1),
+                                  BorderSide(
+                                    color: context.colors.textPrimary,
+                                    width: 1,
+                                  ),
                                 ),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.ios_share,
-                                color: Colors.white,
+                                color: context.colors.textPrimary,
                                 size: 18,
                               ),
                             ),
@@ -423,8 +426,8 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                 delegate: _StickyTabBarDelegate(
                   TabBar(
                     controller: _tabController,
-                    unselectedLabelColor: Colors.white54,
-                    labelColor: Colors.white,
+                    unselectedLabelColor: context.colors.textMuted,
+                    labelColor: context.colors.textPrimary,
                     dividerColor: Colors.transparent,
                     indicatorColor: context.colors.brasa,
                     indicatorPadding: EdgeInsets.symmetric(

@@ -25,10 +25,10 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
     return Scaffold(
       backgroundColor: context.colors.darkGrey,
       appBar: AppBar(
-        foregroundColor: Colors.white,
+        foregroundColor: context.colors.textPrimary,
         title: Text(
           'Seus interesses',
-          style: GoogleFonts.inter(color: Colors.white),
+          style: GoogleFonts.inter(color: context.colors.textPrimary),
         ),
         backgroundColor: context.colors.darkGrey,
       ),
@@ -48,7 +48,7 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
             const SizedBox(height: 6),
             Text(
               'Selecione um ou mais interesses.',
-              style: GoogleFonts.inter(color: Colors.grey),
+              style: GoogleFonts.inter(color: context.colors.textSecondary),
             ),
             const SizedBox(height: 24),
             Wrap(
@@ -81,7 +81,7 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
                         Text(
                           interest.label,
                           style: GoogleFonts.inter(
-                            color: Colors.white,
+                            color: context.colors.textPrimary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
