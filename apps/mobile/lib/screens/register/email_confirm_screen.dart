@@ -73,7 +73,13 @@ class _EmailConfirmScreenState extends State<EmailConfirmScreen> {
           ),
         ),
       );
-      Navigator.pushNamed(context, AppRoutes.login);
+      // Fallback de erro: descarta register e email-confirm, deixando
+      // apenas a tela inicial abaixo do login.
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.login,
+        ModalRoute.withName(AppRoutes.initialScreen),
+      );
     }
   }
 

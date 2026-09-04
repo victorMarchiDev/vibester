@@ -70,7 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
       context.read<UserProvider>().setUser(usuarioLogado);
 
-      Navigator.pushNamed(context, AppRoutes.home);
+      // Limpa toda a pilha do fluxo de login: a home passa a ser a unica
+      // rota, entao o botao voltar do Android nao retorna para o login.
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.home,
+        (route) => false,
+      );
     } catch (e) {
       debugPrint(e.toString());
 

@@ -29,6 +29,12 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.error,
   });
 
+  /// Gradiente da marca, derivado de `ambar` e `brasa` do tema atual.
+  ///
+  /// Use em `BoxDecoration.gradient` para fundos, cards e botões; para texto
+  /// e ícones use `GradientMask` (theme_extensions.dart).
+  LinearGradient get gradient => LinearGradient(colors: [ambar, brasa]);
+
   static const AppColors dark = AppColors(
     navy: Color(0xFF17112A),
     ambar: Color(0xFFF88806),
