@@ -22,10 +22,10 @@ class HomeTab extends StatefulWidget {
   });
 
   @override
-  State<HomeTab> createState() => _HomeTabState();
+  State<HomeTab> createState() => HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
+class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final _locationService = LocationService();
 
@@ -61,6 +61,12 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
       debugPrint('Erro ao obter localização: $e');
     }
   }
+
+  /// Usado pelo botao voltar do Android: informa se a aba FEED esta ativa.
+  bool get isOnFeedTab => _tabController.index == 0;
+
+  /// Usado pelo botao voltar do Android: retorna para a aba FEED.
+  void goToFeedTab() => _tabController.animateTo(0);
 
   @override
   void dispose() {

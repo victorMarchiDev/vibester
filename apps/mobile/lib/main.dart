@@ -26,6 +26,7 @@ import 'package:mobile/screens/feed/new_publication_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
 import 'package:mobile/screens/home/initial_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mobile/screens/onboarding/onboarding_screen.dart';
 import 'package:mobile/screens/places/favorite_places_screen.dart';
 import 'package:mobile/screens/places/hot_places_screen.dart';
 import 'package:mobile/screens/places/place_detail_screen.dart';
@@ -103,18 +104,31 @@ void main() async {
 
   await initializeDateFormatting('pt_BR', null);
   final savedUser = await AuthStorageService.loadSession();
+  final onboardingPendente = await AuthStorageService.onboardingPendente();
   if (savedUser?.token != null) {
     ApiClient.token = savedUser!.token;
   }
   final initialThemeMode = await ThemeService.loadThemeMode();
-  runApp(MyApp(savedUser: savedUser, initialThemeMode: initialThemeMode));
+  runApp(
+    MyApp(
+      savedUser: savedUser,
+      onboardingPendente: onboardingPendente,
+      initialThemeMode: initialThemeMode,
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
   final UserModel? savedUser;
+  final bool onboardingPendente;
   final ThemeMode initialThemeMode;
 
-  const MyApp({super.key, this.savedUser, required this.initialThemeMode});
+  const MyApp({
+    super.key,
+    this.savedUser,
+    this.onboardingPendente = false,
+    required this.initialThemeMode,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -217,9 +231,13 @@ class _MyAppState extends State<MyApp> {
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
           themeMode: themeProvider.themeMode,
-          initialRoute: widget.savedUser != null
-              ? AppRoutes.home
-              : AppRoutes.initialScreen,
+          // Sessao salva com onboarding pendente = o app foi fechado no meio
+          // do onboarding; retoma dali em vez de pular direto para a home.
+          initialRoute: widget.savedUser == null
+              ? AppRoutes.initialScreen
+              : (widget.onboardingPendente
+                    ? AppRoutes.onboarding
+                    : AppRoutes.home),
           onGenerateRoute: (settings) {
             switch (settings.name) {
               // EVENTS
@@ -254,6 +272,10 @@ class _MyAppState extends State<MyApp> {
                 return _fadeRoute(const HomeScreen(), settings);
               case AppRoutes.initialScreen:
                 return _fadeRoute(const InitialScreen(), settings);
+
+              // ONBOARDING
+              case AppRoutes.onboarding:
+                return _fadeRoute(const OnboardingScreen(), settings);
 
               // REGISTER
               case AppRoutes.emailConfirm:

@@ -203,7 +203,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         label: 'Confirmar Senha',
                         onPressed: () {
                           if (!_formKey.currentState!.validate()) return;
-                          Navigator.pushNamed(context, AppRoutes.login);
+                          // A tela de login ja esta na pilha (login ->
+                          // recover -> reset); volta ate ela em vez de
+                          // empilhar uma segunda instancia.
+                          Navigator.popUntil(
+                            context,
+                            ModalRoute.withName(AppRoutes.login),
+                          );
                         },
                       ),
                     ),

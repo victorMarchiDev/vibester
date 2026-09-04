@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/interest_model.dart';
 import 'package:mobile/routes/app_routes.dart';
+import 'package:mobile/service/auth_storage_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/buttons/primary_button.dart';
 
@@ -96,8 +97,20 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
               width: double.infinity,
               child: PrimaryButton(
                 label: 'Continuar',
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.home);
+                onPressed: () async {
+                  // Marca o onboarding como pendente antes de abri-lo, para
+                  // que ele reapareca se o app for fechado no meio.
+                  await AuthStorageService.marcarOnboardingPendente();
+                  if (!mounted) return;
+
+                  // Fim do fluxo de cadastro: remove register, email-confirm,
+                  // profile-edit e esta tela da pilha. O onboarding passa a
+                  // ser a unica rota; a home so vem depois do "Comecar".
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoutes.onboarding,
+                    (route) => false,
+                  );
                 },
               ),
             ),
