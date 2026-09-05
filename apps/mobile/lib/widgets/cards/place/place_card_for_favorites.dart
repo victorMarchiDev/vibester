@@ -60,10 +60,8 @@ class PlaceCardForFavorites extends StatelessWidget {
                       children: [
                         Text(
                           place.nome,
-                          style: TextStyle(
+                          style: context.typography.headlineSmall.copyWith(
                             color: context.colors.textPrimary,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(height: 2),
@@ -73,7 +71,9 @@ class PlaceCardForFavorites extends StatelessWidget {
                             SizedBox(width: 4),
                             Text(
                               '${place.avaliacao}',
-                              style: TextStyle(color: Colors.yellow),
+                              style: context.typography.bodyMedium.copyWith(
+                                color: Colors.yellow,
+                              ),
                             ),
                             SizedBox(width: 4),
                             Icon(
@@ -87,9 +87,8 @@ class PlaceCardForFavorites extends StatelessWidget {
                         ),
                         Text(
                           'Movimento',
-                          style: TextStyle(
+                          style: context.typography.titleSmall.copyWith(
                             color: context.colors.textSecondary,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         MovimentoIndicator(nivel: place.nivelMovimento),

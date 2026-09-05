@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_final_fields
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
+import 'package:mobile/widgets/motion/vibester_shake.dart';
 
-class PrimaryButton extends StatefulWidget {
+class PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final ButtonState state;
@@ -17,60 +17,45 @@ class PrimaryButton extends StatefulWidget {
   });
 
   @override
-  State<PrimaryButton> createState() => _PrimaryButtonState();
-}
-
-class _PrimaryButtonState extends State<PrimaryButton> {
-  @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 2),
-      curve: Curves.easeOutBack,
-      width: 350,
-      height: 60,
-      decoration: BoxDecoration(
-        color: widget.state.color(context),
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: context.colors.ambar.withOpacity(0.5),
-            blurRadius: 12,
-            spreadRadius: 1,
-          ),
-          BoxShadow(
-            color: context.colors.ambar.withOpacity(0.3),
-            blurRadius: 20,
-            spreadRadius: 1,
-          ),
-          BoxShadow(
-            color: context.colors.ambar.withOpacity(0.15),
-            blurRadius: 30,
-            spreadRadius: 1,
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(30),
-        child: InkWell(
+    return VibesterShake(
+      trigger: state,
+      child: AnimatedContainer(
+        duration: context.adaptiveMotion(AppMotion.ui),
+        curve: AppMotion.standard,
+        width: 350,
+        height: 60,
+        decoration: BoxDecoration(
+          color: state.color(context),
           borderRadius: BorderRadius.circular(30),
-          onTap: widget.onPressed,
+          boxShadow: [
+            BoxShadow(
+              color: context.colors.ambar.withOpacity(0.5),
+              blurRadius: 12,
+              spreadRadius: 1,
+            ),
+            BoxShadow(
+              color: context.colors.ambar.withOpacity(0.3),
+              blurRadius: 20,
+              spreadRadius: 1,
+            ),
+            BoxShadow(
+              color: context.colors.ambar.withOpacity(0.15),
+              blurRadius: 30,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: VibesterPressable(
+          borderRadius: BorderRadius.circular(30),
+          onTap: onPressed,
           child: Center(
-            child: widget.state == ButtonState.idle
-                ? Text(
-                    widget.label,
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.bold,
-                      color: context.colors.textPrimary,
-                    ),
-                  )
-                : Text(
-                    widget.state.label,
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.bold,
-                      color: context.colors.textPrimary,
-                    ),
-                  ),
+            child: Text(
+              state == ButtonState.idle ? label : state.label,
+              style: context.typography.titleMedium.copyWith(
+                color: context.colors.textPrimary,
+              ),
+            ),
           ),
         ),
       ),

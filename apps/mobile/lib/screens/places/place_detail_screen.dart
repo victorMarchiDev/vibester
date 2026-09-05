@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/place/place_model.dart';
 import 'package:mobile/providers/place/place_list_provider.dart';
 import 'package:mobile/screens/events/event_list_screen.dart';
 import 'package:mobile/screens/highlights/property_highlights_screen.dart';
 import 'package:mobile/screens/places/place_reviews_screen.dart';
 import 'package:mobile/service/places/place_service.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/utils/hero_tags.dart';
 import 'package:mobile/widgets/indicators/category_indicator.dart';
 import 'package:mobile/utils/divider.dart';
 import 'package:mobile/widgets/indicators/place_stats_bar.dart';
@@ -70,7 +71,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
             body: Center(
               child: Text(
                 snapshot.error.toString(),
-                style: TextStyle(color: context.colors.textMuted),
+                style: context.typography.bodyMedium.copyWith(
+                  color: context.colors.textMuted,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -85,7 +88,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
           appBar: AppBar(
             title: Text(
               place.nome,
-              style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+              style: context.typography.titleLarge.copyWith(
+                color: context.colors.textPrimary,
+              ),
             ),
             backgroundColor: context.colors.noturno,
             foregroundColor: context.colors.textPrimary,
@@ -120,8 +125,8 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
                           imageUrl:
                               'https://media.gettyimages.com/id/1266107863/pt/foto/dj-playing-and-mixing-music-at-party.jpg?s=2048x2048&w=gi&k=20&c=Tmm9GWCaVF_gTB4becCcYTaNJEZepQG8VoxLAunIDKA=',
                           fit: BoxFit.cover,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,
+                          fadeInDuration: AppMotion.imageFade,
+                          fadeOutDuration: AppMotion.imageFade,
                           placeholder: (_, _) =>
                               const Center(child: CircularProgressIndicator()),
                           errorWidget: (_, _, _) => const Icon(Icons.error),
@@ -166,15 +171,19 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
                           child: SizedBox(
                             height: 80,
                             width: 80,
-                            child: CachedNetworkImage(
-                              imageUrl: place.profileImage,
-                              fit: BoxFit.cover,
-                              fadeInDuration: Duration.zero,
-                              fadeOutDuration: Duration.zero,
-                              placeholder: (_, _) => const Center(
-                                child: CircularProgressIndicator(),
+                            child: Hero(
+                              tag: placeImageHeroTag(place),
+                              child: CachedNetworkImage(
+                                imageUrl: place.profileImage,
+                                fit: BoxFit.cover,
+                                fadeInDuration: AppMotion.imageFade,
+                                fadeOutDuration: AppMotion.imageFade,
+                                placeholder: (_, _) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: (_, _, _) =>
+                                    const Icon(Icons.error),
                               ),
-                              errorWidget: (_, _, _) => const Icon(Icons.error),
                             ),
                           ),
                         ),
@@ -186,10 +195,8 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
               const SizedBox(height: 40),
               Text(
                 place.nome.toUpperCase(),
-                style: TextStyle(
+                style: context.typography.displayMedium.copyWith(
                   color: context.colors.textPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -200,7 +207,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
                 width: 350,
                 child: Text(
                   place.bio,
-                  style: TextStyle(color: context.colors.textMuted),
+                  style: context.typography.bodyMedium.copyWith(
+                    color: context.colors.textMuted,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -211,7 +220,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
                   Icon(Icons.location_on, color: context.colors.brasa),
                   Text(
                     place.endereco,
-                    style: TextStyle(color: context.colors.textMuted),
+                    style: context.typography.bodyMedium.copyWith(
+                      color: context.colors.textMuted,
+                    ),
                   ),
                 ],
               ),
@@ -243,10 +254,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen>
                 vertical: 6,
               ),
               labelPadding: EdgeInsets.all(10),
-              labelStyle: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
+              labelStyle: context.typography.labelMedium,
               tabs: [
                 Tab(text: 'DESTAQUES'),
                 Tab(text: 'EVENTOS'),

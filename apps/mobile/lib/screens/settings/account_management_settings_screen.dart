@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 
 class AccountManagementSettingsScreen extends StatefulWidget {
@@ -22,7 +21,9 @@ class _AccountManagementSettingsScreenState
       appBar: AppBar(
         title: Text(
           'Gerenciar Conta',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+          style: context.typography.titleLarge.copyWith(
+            color: context.colors.textPrimary,
+          ),
         ),
         backgroundColor: context.colors.noturno,
         foregroundColor: context.colors.textPrimary,
@@ -39,10 +40,8 @@ class _AccountManagementSettingsScreenState
                 children: [
                   Text(
                     "DADOS E ATIVIDADE",
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -74,10 +73,9 @@ class _AccountManagementSettingsScreenState
                         Expanded(
                           child: Text(
                             "Historico de Vibe Checks",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
                               fontSize: 19.5,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -108,10 +106,8 @@ class _AccountManagementSettingsScreenState
                         Expanded(
                           child: Text(
                             "Vincular e Gerenciar Contas",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),

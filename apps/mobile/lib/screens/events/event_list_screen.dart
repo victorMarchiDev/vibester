@@ -4,6 +4,7 @@ import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/utils/app_progress_indicator.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/event/event_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class EventListScreen extends StatefulWidget {
@@ -56,9 +57,8 @@ class _EventListScreenState extends State<EventListScreen> {
                       const SizedBox(height: 12),
                       Text(
                         provider.error!,
-                        style: TextStyle(
+                        style: context.typography.bodyLarge.copyWith(
                           color: context.colors.textDisabled,
-                          fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -83,15 +83,18 @@ class _EventListScreenState extends State<EventListScreen> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           itemCount: event.length,
           itemBuilder: (context, index) {
-            return EventCard(
-              event: event[index],
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.eventDetail,
-                  arguments: event[index],
-                );
-              },
+            return StaggeredEntrance(
+              index: index,
+              child: EventCard(
+                event: event[index],
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.eventDetail,
+                    arguments: event[index],
+                  );
+                },
+              ),
             );
           },
         ),

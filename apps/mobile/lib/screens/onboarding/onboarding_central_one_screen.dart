@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/motion/word_reveal_text.dart';
 
 // ===========================================================================
 // ONBOARDING 2 — SOCIAL
@@ -62,14 +63,10 @@ class _OnboardingCentralOneScreenState
               const SizedBox(height: 28),
 
               // ---------- título ----------
-              Text(
-                'Veja como tá antes de sair de casa',
-                style: TextStyle(
+              WordRevealText(
+                text: 'Veja como tá antes de sair de casa',
+                style: context.typography.headlineLarge.copyWith(
                   color: context.colors.textPrimary,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  height: 1.15,
-                  letterSpacing: -0.4,
                 ),
               ),
 
@@ -78,9 +75,8 @@ class _OnboardingCentralOneScreenState
               // ---------- texto explicativo ----------
               Text(
                 'Fotos, vídeos e lotação em tempo real, direto dos lugares.',
-                style: TextStyle(
+                style: context.typography.bodyMedium.copyWith(
                   color: context.colors.grey,
-                  fontSize: 14.5,
                   height: 1.55,
                 ),
               ),
@@ -104,10 +100,9 @@ class _OnboardingCentralOneScreenState
                         vertical: 12,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Pular',
-                      style: TextStyle(
-                        fontSize: 14,
+                      style: context.typography.bodyMedium.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -156,9 +151,8 @@ class _ImagePlaceholder extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 label,
-                style: TextStyle(
+                style: context.typography.bodySmall.copyWith(
                   color: context.colors.grey,
-                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -313,10 +307,9 @@ class _GradientButton extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: context.typography.titleMedium.copyWith(
                     color: Colors.white,
                     fontSize: 14.5,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(width: 7),

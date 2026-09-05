@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/screens/register/email_confirm_screen.dart';
 import 'package:mobile/theme/theme_extensions.dart';
@@ -43,15 +42,15 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
 
                 Text(
                   'Recuperar Vibe',
-                  style: GoogleFonts.inter(
+                  style: context.typography.displayLarge.copyWith(
                     color: context.colors.textPrimary,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'Insira seu email para recuperação de conta',
-                  style: GoogleFonts.inter(color: context.colors.grey),
+                  style: context.typography.bodyMedium.copyWith(
+                    color: context.colors.grey,
+                  ),
                 ),
 
                 SizedBox(height: 15),
@@ -62,10 +61,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       padding: const EdgeInsets.only(right: 280, bottom: 10),
                       child: Text(
                         'E-MAIL',
-                        style: GoogleFonts.inter(
+                        style: context.typography.labelSmall.copyWith(
                           color: context.colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
                         ),
                       ),
                     ),
@@ -73,7 +70,9 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: 350,
                       child: TextFormField(
                         controller: _emailController,
-                        style: TextStyle(color: context.colors.textPrimary),
+                        style: context.typography.bodyLarge.copyWith(
+                          color: context.colors.textPrimary,
+                        ),
                         cursorColor: context.colors.ambar,
                         decoration: InputDecoration(
                           filled: true,
@@ -82,7 +81,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          errorStyle: TextStyle(
+                          errorStyle: context.typography.bodySmall.copyWith(
                             color: context.colors.error,
                             fontSize: 12,
                           ),

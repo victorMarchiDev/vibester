@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/models/feed/publication_model.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
@@ -31,8 +31,8 @@ class PublicationCard extends StatelessWidget {
       return CachedNetworkImage(
         imageUrl: src,
         fit: BoxFit.cover,
-        fadeInDuration: Duration.zero,
-        fadeOutDuration: Duration.zero,
+        fadeInDuration: AppMotion.imageFade,
+        fadeOutDuration: AppMotion.imageFade,
         placeholder: (_, _) => const Center(child: CircularProgressIndicator()),
         errorWidget: (_, _, _) => const Icon(Icons.error),
       );
@@ -78,15 +78,13 @@ class PublicationCard extends StatelessWidget {
                           children: [
                             Text(
                               publication.autor,
-                              style: GoogleFonts.inter(
+                              style: context.typography.titleSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
                               ),
                             ),
                             Text(
                               _timeAgo(publication.publicatedAt),
-                              style: GoogleFonts.inter(
+                              style: context.typography.bodySmall.copyWith(
                                 color: context.colors.textMuted,
                                 fontSize: 11,
                               ),
@@ -103,13 +101,12 @@ class PublicationCard extends StatelessWidget {
                                   SizedBox(width: 3),
                                   Text(
                                     publication.location!,
-                                    style: GoogleFonts.inter(
-                                      color: context.colors.brasa.withAlpha(
-                                        150,
-                                      ),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
+                                    style: context.typography.labelMedium
+                                        .copyWith(
+                                          color: context.colors.brasa.withAlpha(
+                                            150,
+                                          ),
+                                        ),
                                   ),
                                 ],
                               ),
@@ -136,14 +133,14 @@ class PublicationCard extends StatelessWidget {
             child: Text.rich(
               TextSpan(
                 text: '${publication.autor}: ',
-                style: GoogleFonts.inter(
+                style: context.typography.bodyMedium.copyWith(
                   color: context.colors.textPrimary,
                   fontWeight: FontWeight.bold,
                 ),
                 children: [
                   TextSpan(
                     text: publication.description,
-                    style: GoogleFonts.inter(color: context.colors.textMuted),
+                    style: TextStyle(color: context.colors.textMuted),
                   ),
                 ],
               ),

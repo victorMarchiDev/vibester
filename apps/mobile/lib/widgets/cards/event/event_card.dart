@@ -2,8 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/models/event/event_model.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/utils/app_progress_indicator.dart';
+import 'package:mobile/utils/hero_tags.dart';
+import 'package:mobile/widgets/badges/pixel_badge.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
 
 class EventCard extends StatelessWidget {
   final EventModel event;
@@ -13,9 +17,10 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return VibesterPressable(
       onTap: onTap,
-
+      pressScale: AppMotion.scalePress,
+      borderRadius: BorderRadius.circular(16),
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -25,14 +30,17 @@ class EventCard extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              CachedNetworkImage(
-                imageUrl: event.imageUrl,
-                fit: BoxFit.cover,
-                fadeInDuration: Duration.zero,
-                fadeOutDuration: Duration.zero,
-                placeholder: (_, _) =>
-                    const Center(child: AppProgressIndicator()),
-                errorWidget: (_, _, _) => const Icon(Icons.error),
+              Hero(
+                tag: eventImageHeroTag(event),
+                child: CachedNetworkImage(
+                  imageUrl: event.imageUrl,
+                  fit: BoxFit.cover,
+                  fadeInDuration: AppMotion.imageFade,
+                  fadeOutDuration: AppMotion.imageFade,
+                  placeholder: (_, _) =>
+                      const Center(child: AppProgressIndicator()),
+                  errorWidget: (_, _, _) => const Icon(Icons.error),
+                ),
               ),
 
               DecoratedBox(
@@ -44,6 +52,13 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
               ),
+
+              if (event.emDestaque)
+                Positioned(
+                  top: 12,
+                  left: 12,
+                  child: PixelBadge(label: 'Destaque'),
+                ),
 
               //Campos de texto sob a imagem (Estudar melhor essa parta, ta meio confuso algumas partes)
               Positioned(
@@ -58,27 +73,21 @@ class EventCard extends StatelessWidget {
                         "EEE dd MMM  HH:mm",
                         "pt_BR",
                       ).format(event.dataDoEvento).toUpperCase(),
-                      style: TextStyle(
+                      style: context.typography.labelMedium.copyWith(
                         color: context.colors.brasa,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       event.titulo.toUpperCase(),
-                      style: TextStyle(
+                      style: context.typography.headlineMedium.copyWith(
                         color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       event.artistas,
-                      style: TextStyle(
+                      style: context.typography.titleMedium.copyWith(
                         color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 4),
@@ -101,10 +110,8 @@ class EventCard extends StatelessWidget {
                           Text(
                             "MAIS INFORMAÇÕES",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: context.typography.titleMedium.copyWith(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
                             ),
                           ),
                         ],

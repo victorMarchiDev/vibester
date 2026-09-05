@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
 
 class SecundaryButton extends StatelessWidget {
   final String label;
@@ -19,20 +19,10 @@ class SecundaryButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 60,
-
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: context.colors.ambar,
-
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-
-        onPressed: () {
-          onPressed();
-        },
-
+      child: VibesterPressable(
+        materialColor: context.colors.ambar,
+        borderRadius: BorderRadius.circular(30),
+        onTap: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -40,9 +30,8 @@ class SecundaryButton extends StatelessWidget {
             SizedBox(width: 8),
             Text(
               label,
-              style: GoogleFonts.inter(
+              style: context.typography.titleMedium.copyWith(
                 color: context.colors.textPrimary,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ],

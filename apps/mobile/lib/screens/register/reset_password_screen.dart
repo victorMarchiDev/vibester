@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/buttons/primary_button.dart';
@@ -33,15 +32,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
               Text(
                 'Recuperar Vibe',
-                style: GoogleFonts.inter(
+                style: context.typography.displayLarge.copyWith(
                   color: context.colors.textPrimary,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 'Informe e confirme sua nova senha abaixo',
-                style: GoogleFonts.inter(color: context.colors.grey),
+                style: context.typography.bodyMedium.copyWith(
+                  color: context.colors.grey,
+                ),
               ),
 
               SizedBox(height: 15),
@@ -53,10 +52,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     padding: const EdgeInsets.only(right: 290, bottom: 10),
                     child: Text(
                       'SENHA',
-                      style: GoogleFonts.inter(
+                      style: context.typography.labelSmall.copyWith(
                         color: context.colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
                       ),
                     ),
                   ),
@@ -64,7 +61,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     width: 350,
                     child: TextFormField(
                       obscureText: true,
-                      style: TextStyle(color: context.colors.textPrimary),
+                      style: context.typography.bodyLarge.copyWith(
+                        color: context.colors.textPrimary,
+                      ),
                       cursorColor: context.colors.ambar,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
@@ -74,7 +73,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        errorStyle: TextStyle(
+                        errorStyle: context.typography.bodySmall.copyWith(
                           color: context.colors.error,
                           fontSize: 12,
                         ),
@@ -127,10 +126,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     padding: const EdgeInsets.only(right: 230, bottom: 10),
                     child: Text(
                       'CONFIRMA SENHA',
-                      style: GoogleFonts.inter(
+                      style: context.typography.labelSmall.copyWith(
                         color: context.colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
                       ),
                     ),
                   ),
@@ -138,7 +135,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     width: 350,
                     child: TextFormField(
                       obscureText: true,
-                      style: TextStyle(color: context.colors.textPrimary),
+                      style: context.typography.bodyLarge.copyWith(
+                        color: context.colors.textPrimary,
+                      ),
                       cursorColor: context.colors.ambar,
                       decoration: InputDecoration(
                         filled: true,
@@ -147,7 +146,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        errorStyle: TextStyle(
+                        errorStyle: context.typography.bodySmall.copyWith(
                           color: context.colors.error,
                           fontSize: 12,
                         ),

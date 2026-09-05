@@ -4,7 +4,9 @@ import 'package:mobile/providers/feed/publication_list_provider.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/widgets/cards/feed/publication_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -69,7 +71,9 @@ class _FeedScreenState extends State<FeedScreen> {
                   children: [
                     Text(
                       provider.erro!,
-                      style: TextStyle(color: context.colors.textDisabled),
+                      style: context.typography.bodyMedium.copyWith(
+                        color: context.colors.textDisabled,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
@@ -81,7 +85,9 @@ class _FeedScreenState extends State<FeedScreen> {
                       },
                       child: Text(
                         'Tentar novamente',
-                        style: TextStyle(color: context.colors.ambar),
+                        style: context.typography.titleMedium.copyWith(
+                          color: context.colors.ambar,
+                        ),
                       ),
                     ),
                   ],
@@ -111,7 +117,10 @@ class _FeedScreenState extends State<FeedScreen> {
                       ),
                     );
                   }
-                  return PublicationCard(publication: publications[index]);
+                  return StaggeredEntrance(
+                    index: index,
+                    child: PublicationCard(publication: publications[index]),
+                  );
                 },
               ),
             ),
@@ -124,11 +133,12 @@ class _FeedScreenState extends State<FeedScreen> {
               builder: (context, visible, child) {
                 return AnimatedSlide(
                   offset: visible ? Offset.zero : const Offset(0, 3),
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
+                  duration: context.adaptiveMotion(AppMotion.normal),
+                  curve: AppMotion.standard,
                   child: AnimatedOpacity(
                     opacity: visible ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 300),
+                    duration: context.adaptiveMotion(AppMotion.normal),
+                    curve: AppMotion.standard,
                     child: child!,
                   ),
                 );

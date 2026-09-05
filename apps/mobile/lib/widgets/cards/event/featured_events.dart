@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/models/event/event_model.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/utils/app_progress_indicator.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/badges/pixel_badge.dart';
 
 class FeaturedEvents extends StatefulWidget {
   final EventModel event;
@@ -39,8 +40,8 @@ class _FeaturedEventsState extends State<FeaturedEvents> {
               CachedNetworkImage(
                 imageUrl: widget.event.imageUrl,
                 fit: BoxFit.cover,
-                fadeInDuration: Duration.zero,
-                fadeOutDuration: Duration.zero,
+                fadeInDuration: AppMotion.imageFade,
+                fadeOutDuration: AppMotion.imageFade,
                 placeholder: (_, _) =>
                     const Center(child: AppProgressIndicator()),
                 errorWidget: (_, _, _) => const Icon(Icons.error),
@@ -55,6 +56,13 @@ class _FeaturedEventsState extends State<FeaturedEvents> {
                   ),
                 ),
               ),
+
+              if (widget.event.emDestaque)
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: PixelBadge(label: 'Destaque'),
+                ),
 
               //Campos de texto sob a imagem (Estudar melhor essa parta, ta meio confuso algumas partes)
               Positioned(
@@ -77,12 +85,10 @@ class _FeaturedEventsState extends State<FeaturedEvents> {
 
                       child: Text(
                         widget.event.categoria,
-                        style: GoogleFonts.inter(
+                        style: context.typography.labelMedium.copyWith(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
                           fontSize: 16,
                           letterSpacing: 4,
-
                           shadows: [
                             Shadow(color: context.colors.brasa, blurRadius: 5),
                           ],
@@ -94,19 +100,15 @@ class _FeaturedEventsState extends State<FeaturedEvents> {
 
                     Text(
                       widget.event.titulo.toUpperCase(),
-                      style: TextStyle(
+                      style: context.typography.headlineMedium.copyWith(
                         color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       widget.event.localizacao,
-                      style: TextStyle(
+                      style: context.typography.titleMedium.copyWith(
                         color: Colors.white.withOpacity(0.6),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 2),

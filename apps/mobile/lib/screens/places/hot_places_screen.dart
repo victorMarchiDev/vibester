@@ -5,6 +5,7 @@ import 'package:mobile/providers/place/place_list_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/place/place_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:mobile/utils/search_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -72,19 +73,16 @@ class _HotPlacesScreenState extends State<HotPlacesScreen> {
                   children: [
                     Text(
                       'Populares Agora',
-                      style: TextStyle(
+                      style: context.typography.displayMedium.copyWith(
                         color: context.colors.textPrimary,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text.rich(
                       TextSpan(
                         text: 'Os locais mais movimentados da cidade ',
-                        style: TextStyle(
+                        style: context.typography.bodyMedium.copyWith(
                           color: context.colors.textMuted,
-                          fontSize: 14,
                         ),
                         children: [
                           TextSpan(
@@ -123,18 +121,16 @@ class _HotPlacesScreenState extends State<HotPlacesScreen> {
                     const SizedBox(height: 12),
                     Text(
                       'Nenhum lugar encontrado',
-                      style: TextStyle(
+                      style: context.typography.bodyLarge.copyWith(
                         color: context.colors.textDisabled,
-                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Tente buscar por outro nome ou categoria',
-                      style: TextStyle(
+                      style: context.typography.bodySmall.copyWith(
                         color: context.colors.textDisabled,
-                        fontSize: 13,
                       ),
                     ),
                   ],
@@ -142,15 +138,18 @@ class _HotPlacesScreenState extends State<HotPlacesScreen> {
               );
             }
 
-            return PlaceCard(
-              place: listaFiltrada[index - 1],
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.placeDetail,
-                  arguments: listaFiltrada[index - 1].id,
-                );
-              },
+            return StaggeredEntrance(
+              index: index - 1,
+              child: PlaceCard(
+                place: listaFiltrada[index - 1],
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.placeDetail,
+                    arguments: listaFiltrada[index - 1].id,
+                  );
+                },
+              ),
             );
           },
         ),

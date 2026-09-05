@@ -4,6 +4,7 @@ import 'package:mobile/providers/place/place_list_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/place/place_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -36,10 +37,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     children: [
                       Text(
                         'Seus lugares favoritos',
-                        style: TextStyle(
+                        style: context.typography.headlineMedium.copyWith(
                           color: context.colors.textPrimary,
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -48,10 +48,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     children: [
                       Text(
                         'Os lugares que você ama acompanhar de perto.',
-                        style: TextStyle(
+                        style: context.typography.labelMedium.copyWith(
                           color: context.colors.textDisabled,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -61,15 +59,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             );
           }
 
-          return PlaceCard(
-            place: favorites[index - 1],
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.placeDetail,
-                arguments: favorites[index - 1].id,
-              );
-            },
+          return StaggeredEntrance(
+            index: index - 1,
+            child: PlaceCard(
+              place: favorites[index - 1],
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.placeDetail,
+                  arguments: favorites[index - 1].id,
+                );
+              },
+            ),
           );
         },
       ),

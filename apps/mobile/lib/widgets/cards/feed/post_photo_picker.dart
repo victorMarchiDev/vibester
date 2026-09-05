@@ -78,9 +78,8 @@ class _PostPhotoPickerState extends State<PostPhotoPicker> {
                     const SizedBox(height: 8),
                     Text(
                       'Adicionar foto',
-                      style: TextStyle(
+                      style: context.typography.bodyMedium.copyWith(
                         color: context.colors.ambar.withAlpha(180),
-                        fontSize: 14,
                       ),
                     ),
                   ],

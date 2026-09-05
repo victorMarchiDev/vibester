@@ -4,10 +4,10 @@ import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/service/user/user_service.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/screens/events/favorites_events_screen.dart';
 import 'package:mobile/screens/highlights/property_highlights_screen.dart';
 import 'package:mobile/screens/places/favorite_places_screen.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/utils/divider.dart';
 import 'package:mobile/utils/editable_text_field.dart';
@@ -160,7 +160,9 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
             body: Center(
               child: Text(
                 snapshot.error.toString(),
-                style: TextStyle(color: context.colors.textMuted),
+                style: context.typography.bodyMedium.copyWith(
+                  color: context.colors.textMuted,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -197,8 +199,8 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
             mainAxisSize: MainAxisSize.min,
             children: [
               AnimatedSize(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
+                duration: context.adaptiveMotion(AppMotion.normal),
+                curve: AppMotion.standard,
                 child: _showAppBarAvatar
                     ? Padding(
                         padding: const EdgeInsets.only(right: 8),
@@ -213,10 +215,8 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
               ),
               Text(
                 otherUser.nomeUsuario,
-                style: GoogleFonts.inter(
+                style: context.typography.titleMedium.copyWith(
                   color: context.colors.textPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
                 ),
               ),
             ],
@@ -261,10 +261,9 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                         fit: BoxFit.scaleDown,
                         child: Text(
                           otherUser.nome,
-                          style: GoogleFonts.inter(
+                          style: context.typography.displayLarge.copyWith(
                             color: context.colors.textPrimary,
                             fontSize: 35,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -290,9 +289,8 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
 
                     Text(
                       otherUser.bio,
-                      style: GoogleFonts.inter(
+                      style: context.typography.titleSmall.copyWith(
                         color: context.colors.textSecondary,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
@@ -305,17 +303,14 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                           children: [
                             Text(
                               otherUser.seguidores.toString(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.headlineSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               'SEGUIDORES',
-                              style: GoogleFonts.inter(
+                              style: context.typography.pixelBadge.copyWith(
                                 color: context.colors.textSecondary,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
@@ -328,17 +323,14 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                           children: [
                             Text(
                               otherUser.seguindo.toString(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.headlineSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               'SEGUINDO',
-                              style: GoogleFonts.inter(
+                              style: context.typography.pixelBadge.copyWith(
                                 color: context.colors.textSecondary,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
@@ -351,17 +343,14 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                           children: [
                             Text(
                               otherUser.eventosVisitados.toString(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.headlineSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               'EVENTOS',
-                              style: GoogleFonts.inter(
+                              style: context.typography.pixelBadge.copyWith(
                                 color: context.colors.textSecondary,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
@@ -435,10 +424,7 @@ class _OtherUsersProfileScreenState extends State<OtherUsersProfileScreen>
                       vertical: 6,
                     ),
                     labelPadding: EdgeInsets.all(10),
-                    labelStyle: GoogleFonts.inter(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    labelStyle: context.typography.labelMedium,
                     tabs: [
                       Tab(text: 'FOTOS'),
                       Tab(text: 'FAVORITOS'),

@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/service/user/user_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/theme/vibester_dialog.dart';
 import 'package:mobile/widgets/cards/users/editing_avatar.dart';
 import 'package:provider/provider.dart';
 
@@ -129,7 +129,7 @@ class _PersonalInformationSettingsScreenState
   }) {
     final controller = TextEditingController(text: valorAtual);
     final focusNode = FocusNode();
-    showDialog(
+    showVibesterDialog(
       context: context,
       builder: (context) => Dialog(
         backgroundColor: Colors.transparent,
@@ -153,10 +153,8 @@ class _PersonalInformationSettingsScreenState
                 ),
                 child: Text(
                   'Alterar $titulo',
-                  style: TextStyle(
+                  style: context.typography.headlineSmall.copyWith(
                     color: context.colors.textPrimary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -171,7 +169,9 @@ class _PersonalInformationSettingsScreenState
                   focusNode: focusNode,
                   autofocus: true,
                   maxLength: maxCaracteres,
-                  style: TextStyle(color: context.colors.textPrimary),
+                  style: context.typography.bodyLarge.copyWith(
+                    color: context.colors.textPrimary,
+                  ),
                   cursorColor: context.colors.ambar,
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
@@ -180,7 +180,9 @@ class _PersonalInformationSettingsScreenState
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: context.colors.ambar),
                     ),
-                    counterStyle: TextStyle(color: context.colors.textDisabled),
+                    counterStyle: context.typography.bodySmall.copyWith(
+                      color: context.colors.textDisabled,
+                    ),
                   ),
                 ),
               ),
@@ -211,7 +213,7 @@ class _PersonalInformationSettingsScreenState
                       ),
                       child: Text(
                         'Confirmar',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+                        style: context.typography.titleMedium,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -235,7 +237,7 @@ class _PersonalInformationSettingsScreenState
                       ),
                       child: Text(
                         'Cancelar',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+                        style: context.typography.titleMedium,
                       ),
                     ),
                   ],
@@ -260,10 +262,8 @@ class _PersonalInformationSettingsScreenState
               children: [
                 Text(
                   label,
-                  style: GoogleFonts.inter(
+                  style: context.typography.headlineSmall.copyWith(
                     color: context.colors.textPrimary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -271,10 +271,9 @@ class _PersonalInformationSettingsScreenState
                   valor,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.inter(
+                  style: context.typography.titleMedium.copyWith(
                     color: context.colors.textMuted,
                     fontSize: 15,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -320,7 +319,9 @@ class _PersonalInformationSettingsScreenState
       appBar: AppBar(
         title: Text(
           'Informações pessoais',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+          style: context.typography.titleLarge.copyWith(
+            color: context.colors.textPrimary,
+          ),
         ),
         backgroundColor: context.colors.noturno,
         foregroundColor: context.colors.textPrimary,
@@ -358,10 +359,9 @@ class _PersonalInformationSettingsScreenState
                   const SizedBox(height: 8),
                   Text(
                     user.nome,
-                    style: TextStyle(
+                    style: context.typography.headlineMedium.copyWith(
                       color: context.colors.textPrimary,
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 5),
@@ -377,10 +377,8 @@ class _PersonalInformationSettingsScreenState
                 children: [
                   Text(
                     'DADOS',
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textMuted,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -459,10 +457,8 @@ class _PersonalInformationSettingsScreenState
                 children: [
                   Text(
                     'INFORMAÇÕES DA CONTA',
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textMuted,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

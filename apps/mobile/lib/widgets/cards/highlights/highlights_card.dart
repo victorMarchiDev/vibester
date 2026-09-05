@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/models/highlights/highlight_model.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
@@ -47,8 +48,8 @@ class HighlightsCard extends StatelessWidget {
                     // menor evita que a imagem em tela cheia do post detail
                     // expulse essas miniaturas do cache de memória.
                     memCacheWidth: 400,
-                    fadeInDuration: Duration.zero,
-                    fadeOutDuration: Duration.zero,
+                    fadeInDuration: AppMotion.imageFade,
+                    fadeOutDuration: AppMotion.imageFade,
                     progressIndicatorBuilder: (context, url, progress) {
                       return Container(
                         color: Colors.white12,

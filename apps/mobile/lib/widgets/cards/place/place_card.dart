@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/models/place/place_model.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/utils/hero_tags.dart';
 import 'package:mobile/widgets/indicators/category_indicator.dart';
 import 'package:mobile/widgets/indicators/movement_indicator.dart';
 import 'package:mobile/widgets/indicators/price_indicator.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
 
 class PlaceCard extends StatelessWidget {
   final PlaceModel place;
@@ -14,8 +17,10 @@ class PlaceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return VibesterPressable(
       onTap: onTap,
+      pressScale: AppMotion.scalePress,
+      borderRadius: BorderRadius.circular(12),
       child: Card(
         color: context.colors.noturno,
         margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -47,14 +52,18 @@ class PlaceCard extends StatelessWidget {
                       child: SizedBox(
                         height: 80,
                         width: 80,
-                        child: CachedNetworkImage(
-                          imageUrl: place.profileImage,
-                          fit: BoxFit.cover,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,
-                          placeholder: (_, _) =>
-                              const Center(child: CircularProgressIndicator()),
-                          errorWidget: (_, _, _) => const Icon(Icons.error),
+                        child: Hero(
+                          tag: placeImageHeroTag(place),
+                          child: CachedNetworkImage(
+                            imageUrl: place.profileImage,
+                            fit: BoxFit.cover,
+                            fadeInDuration: AppMotion.imageFade,
+                            fadeOutDuration: AppMotion.imageFade,
+                            placeholder: (_, _) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            errorWidget: (_, _, _) => const Icon(Icons.error),
+                          ),
                         ),
                       ),
                     ),
@@ -66,10 +75,8 @@ class PlaceCard extends StatelessWidget {
                       children: [
                         Text(
                           place.nome,
-                          style: TextStyle(
+                          style: context.typography.headlineSmall.copyWith(
                             color: context.colors.textPrimary,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -81,7 +88,9 @@ class PlaceCard extends StatelessWidget {
                             SizedBox(width: 4),
                             Text(
                               '${place.avaliacao}',
-                              style: TextStyle(color: context.colors.textMuted),
+                              style: context.typography.bodyMedium.copyWith(
+                                color: context.colors.textMuted,
+                              ),
                             ),
                             SizedBox(width: 4),
                             Icon(
@@ -95,9 +104,8 @@ class PlaceCard extends StatelessWidget {
                         ),
                         Text(
                           'Movimento',
-                          style: TextStyle(
+                          style: context.typography.titleSmall.copyWith(
                             color: context.colors.textSecondary,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(height: 3),

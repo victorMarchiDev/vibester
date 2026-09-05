@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/place/exclusive_offers_model.dart';
 import 'package:mobile/providers/events/events_list_provider.dart';
 import 'package:mobile/providers/place/place_list_provider.dart';
@@ -181,9 +180,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                     ? Center(
                         child: Text(
                           'Nenhum evento em destaque',
-                          style: TextStyle(
+                          style: context.typography.bodyMedium.copyWith(
                             color: context.colors.textDisabled,
-                            fontSize: 14,
                           ),
                         ),
                       )
@@ -210,10 +208,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Categorias",
-                      style: GoogleFonts.inter(
+                      style: context.typography.headlineMedium.copyWith(
                         color: context.colors.textPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
                       ),
                     ),
                   ),
@@ -225,10 +221,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Descubra",
-                      style: GoogleFonts.inter(
+                      style: context.typography.headlineMedium.copyWith(
                         color: context.colors.textPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
                       ),
                     ),
                   ),
@@ -240,10 +234,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Eventos da Semana",
-                      style: GoogleFonts.inter(
+                      style: context.typography.headlineMedium.copyWith(
                         color: context.colors.textPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
                       ),
                     ),
                   ),
@@ -264,9 +256,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                           ? Center(
                               child: Text(
                                 'Nenhum evento esta semana',
-                                style: TextStyle(
+                                style: context.typography.bodyMedium.copyWith(
                                   color: context.colors.textDisabled,
-                                  fontSize: 14,
                                 ),
                               ),
                             )
@@ -291,10 +282,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Ofertas Exclusivas",
-                      style: GoogleFonts.inter(
+                      style: context.typography.headlineMedium.copyWith(
                         color: context.colors.textPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
                       ),
                     ),
                   ),
@@ -322,10 +311,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                     children: [
                       Text(
                         "Perto de Você",
-                        style: GoogleFonts.inter(
+                        style: context.typography.headlineMedium.copyWith(
                           color: context.colors.textPrimary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
                         ),
                       ),
                       _atualizandoLocalizacao
@@ -383,9 +370,8 @@ class _HighlightsSectionScreenState extends State<HighlightsSectionScreen> {
                               'Verifique se o GPS está ativado e se o app '
                               'tem permissão de localização.',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: context.typography.bodyMedium.copyWith(
                                 color: context.colors.textDisabled,
-                                fontSize: 14,
                               ),
                             ),
                           ],

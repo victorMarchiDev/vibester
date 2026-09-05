@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/models/notification/notification_model.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/utils/relative_time.dart';
@@ -80,8 +80,8 @@ class NotificationCard extends StatelessWidget {
                           imageUrl: notification.atorAvatarUrl!,
                           fit: BoxFit.cover,
                           memCacheWidth: 120,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,
+                          fadeInDuration: AppMotion.imageFade,
+                          fadeOutDuration: AppMotion.imageFade,
                           errorWidget: (_, _, _) => _fallbackAvatar(context),
                         )
                       : _fallbackAvatar(context),
@@ -93,9 +93,8 @@ class NotificationCard extends StatelessWidget {
               Expanded(
                 child: RichText(
                   text: TextSpan(
-                    style: GoogleFonts.inter(
+                    style: context.typography.bodyMedium.copyWith(
                       color: context.colors.textPrimary,
-                      fontSize: 14,
                     ),
                     children: [
                       TextSpan(
@@ -108,9 +107,10 @@ class NotificationCard extends StatelessWidget {
                       TextSpan(
                         text:
                             '  ·  ${formatRelativeTime(notification.criadoEm)}',
-                        style: TextStyle(
+                        style: context.typography.bodySmall.copyWith(
                           color: context.colors.textDisabled,
                           fontSize: 12,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],
@@ -129,8 +129,8 @@ class NotificationCard extends StatelessWidget {
                       imageUrl: notification.postImagemUrl!,
                       fit: BoxFit.cover,
                       memCacheWidth: 120,
-                      fadeInDuration: Duration.zero,
-                      fadeOutDuration: Duration.zero,
+                      fadeInDuration: AppMotion.imageFade,
+                      fadeOutDuration: AppMotion.imageFade,
                       errorWidget: (_, _, _) => Container(
                         color: context.colors.darkGrey,
                         child: Icon(

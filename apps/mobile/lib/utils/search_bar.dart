@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 
-class CustomSearchBar extends StatelessWidget {
+class CustomSearchBar extends StatefulWidget {
   final TextEditingController controller;
   final VoidCallback onChanged;
   final VoidCallback? onSubmitted;
@@ -14,30 +15,62 @@ class CustomSearchBar extends StatelessWidget {
   });
 
   @override
+  State<CustomSearchBar> createState() => _CustomSearchBarState();
+}
+
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  final _focusNode = FocusNode();
+  bool _focused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() => _focused = _focusNode.hasFocus);
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: context.adaptiveMotion(AppMotion.normal),
+      curve: AppMotion.standard,
       width: double.infinity,
       decoration: BoxDecoration(
         color: context.colors.noturno,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.12), width: 2),
+        border: Border.all(
+          color: _focused
+              ? context.colors.ambar
+              : Colors.white.withOpacity(0.12),
+          width: 2,
+        ),
       ),
       child: TextField(
-        controller: controller,
+        controller: widget.controller,
+        focusNode: _focusNode,
         cursorColor: context.colors.ambar,
-        style: const TextStyle(color: Colors.white),
-        onChanged: (_) => onChanged(),
-        onSubmitted: (_) => onSubmitted?.call(),
+        style: context.typography.bodyLarge.copyWith(color: Colors.white),
+        onChanged: (_) => widget.onChanged(),
+        onSubmitted: (_) => widget.onSubmitted?.call(),
         decoration: InputDecoration(
           hintText: 'Buscar por nome ou categoria...',
-          hintStyle: TextStyle(color: Colors.white38, fontSize: 14),
+          hintStyle: context.typography.bodyMedium.copyWith(
+            color: Colors.white38,
+          ),
           prefixIcon: Icon(Icons.search, color: context.colors.ambar),
-          suffixIcon: controller.text.isNotEmpty
+          suffixIcon: widget.controller.text.isNotEmpty
               ? IconButton(
                   icon: Icon(Icons.close, color: Colors.white38),
                   onPressed: () {
-                    controller.clear();
-                    onChanged();
+                    widget.controller.clear();
+                    widget.onChanged();
                   },
                 )
               : null,

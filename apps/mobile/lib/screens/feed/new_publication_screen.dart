@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/service/posts/post_service.dart';
@@ -66,7 +65,9 @@ class _NewPublicationScreenState extends State<NewPublicationScreen> {
         ],
         title: Text(
           'Novo Post',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+          style: context.typography.titleLarge.copyWith(
+            color: context.colors.textPrimary,
+          ),
         ),
         backgroundColor: context.colors.noturno,
         foregroundColor: context.colors.textPrimary,

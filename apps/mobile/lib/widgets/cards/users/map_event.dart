@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/theme/theme_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapEvent extends StatefulWidget {
@@ -56,10 +57,8 @@ class _MapEventState extends State<MapEvent> {
                         SizedBox(width: 8),
                         Text(
                           "ABRIR NO MAPS",
-                          style: TextStyle(
+                          style: context.typography.titleMedium.copyWith(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
                           ),
                         ),
                       ],

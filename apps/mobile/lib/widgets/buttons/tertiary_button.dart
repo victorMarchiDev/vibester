@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
+import 'package:mobile/widgets/motion/vibester_shake.dart';
 
-class TertiaryButton extends StatefulWidget {
+class TertiaryButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final ButtonState state;
@@ -15,35 +17,28 @@ class TertiaryButton extends StatefulWidget {
   });
 
   @override
-  State<TertiaryButton> createState() => _TertiaryButtonState();
-}
-
-class _TertiaryButtonState extends State<TertiaryButton> {
-  @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 3),
-      curve: Curves.easeOutBack,
-      width: double.infinity,
-      height: 60,
-      decoration: BoxDecoration(
-        color: widget.state.color(context),
-        borderRadius: BorderRadius.circular(30),
-        border: widget.state == ButtonState.idle
-            ? Border.all(width: 1, color: context.colors.ambar)
-            : null,
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(30),
-        child: InkWell(
+    return VibesterShake(
+      trigger: state,
+      child: AnimatedContainer(
+        duration: context.adaptiveMotion(AppMotion.ui),
+        curve: AppMotion.standard,
+        width: double.infinity,
+        height: 60,
+        decoration: BoxDecoration(
+          color: state.color(context),
           borderRadius: BorderRadius.circular(30),
-          onTap: widget.onPressed,
+          border: state == ButtonState.idle
+              ? Border.all(width: 1, color: context.colors.ambar)
+              : null,
+        ),
+        child: VibesterPressable(
+          borderRadius: BorderRadius.circular(30),
+          onTap: onPressed,
           child: Center(
             child: Text(
-              widget.state.label.toUpperCase(),
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.bold,
+              state.label.toUpperCase(),
+              style: context.typography.titleMedium.copyWith(
                 color: context.colors.textPrimary,
               ),
             ),

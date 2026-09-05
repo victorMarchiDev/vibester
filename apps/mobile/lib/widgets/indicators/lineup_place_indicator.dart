@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/providers/place/place_list_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
@@ -80,8 +80,8 @@ class LineupPlaceIndicator extends StatelessWidget {
                               : CachedNetworkImage(
                                   imageUrl: place.profileImage,
                                   fit: BoxFit.cover,
-                                  fadeInDuration: Duration.zero,
-                                  fadeOutDuration: Duration.zero,
+                                  fadeInDuration: AppMotion.imageFade,
+                                  fadeOutDuration: AppMotion.imageFade,
                                   errorWidget: (_, _, _) => Container(
                                     color: Colors.white12,
                                     child: Icon(
@@ -100,10 +100,8 @@ class LineupPlaceIndicator extends StatelessWidget {
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
+                    style: context.typography.labelMedium.copyWith(
                       color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
                     ),
                   ),
 
@@ -118,7 +116,7 @@ class LineupPlaceIndicator extends StatelessWidget {
                       SizedBox(width: 6),
                       Text(
                         '${place.avaliacao}',
-                        style: TextStyle(
+                        style: context.typography.bodySmall.copyWith(
                           color: context.colors.textMuted,
                           fontSize: 11,
                         ),

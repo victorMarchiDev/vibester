@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/providers/theme/theme_provider.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/service/payment/payment_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/theme/vibester_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,36 +27,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
   static const String _promocoesProductId = 'prod_g3JtzRb2TASCFuBYrQ2M4gTp';
 
   Future<void> _confirmarLogout() async {
-    final confirmar = await showDialog<bool>(
+    final confirmar = await showVibesterDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: context.colors.darkGrey,
         title: Text(
           'Sair da conta',
-          style: GoogleFonts.inter(
+          style: context.typography.titleLarge.copyWith(
             color: context.colors.textPrimary,
-            fontWeight: FontWeight.bold,
           ),
         ),
         content: Text(
           'Tem certeza que deseja sair?',
-          style: GoogleFonts.inter(color: context.colors.textSecondary),
+          style: context.typography.bodyMedium.copyWith(
+            color: context.colors.textSecondary,
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
             child: Text(
               'Cancelar',
-              style: GoogleFonts.inter(color: context.colors.textMuted),
+              style: context.typography.bodyMedium.copyWith(
+                color: context.colors.textMuted,
+              ),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
             child: Text(
               'Sair',
-              style: GoogleFonts.inter(
+              style: context.typography.titleSmall.copyWith(
                 color: context.colors.error,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -114,7 +116,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: Text(
           'Configurações',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold),
+          style: context.typography.titleLarge.copyWith(
+            color: context.colors.textPrimary,
+          ),
         ),
         backgroundColor: context.colors.noturno,
         foregroundColor: context.colors.textPrimary,
@@ -131,10 +135,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Text(
                     "CONTA",
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -173,10 +175,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Informações Pessoais",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -208,10 +208,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Segurança",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -249,10 +247,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Gerenciamento de Conta",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -275,10 +271,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Text(
                     "APARÊNCIA",
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -308,10 +302,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Expanded(
                     child: Text(
                       "Modo Escuro",
-                      style: GoogleFonts.inter(
+                      style: context.typography.headlineSmall.copyWith(
                         color: context.colors.textPrimary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -339,10 +331,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Text(
                     "PRIVACIDADE",
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -378,10 +368,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Permissões de Localização",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
                               fontSize: 19,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -411,10 +400,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Expanded(
                         child: Text(
                           "Ghost Vibe",
-                          style: GoogleFonts.inter(
+                          style: context.typography.headlineSmall.copyWith(
                             color: context.colors.textPrimary,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
@@ -454,10 +441,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Visualizar Vibe Checks",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -480,10 +465,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Text(
                     "NOTIFICAÇÕES",
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -521,10 +504,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Amigos na Área",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -558,10 +539,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Atualizações de Eventos",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -604,10 +583,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Assinar o Vibester Club",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -630,10 +607,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Text(
                     "AJUDA",
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -669,10 +644,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Central de Ajuda",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -704,10 +677,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Convidar um Amigo",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -739,10 +710,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Expanded(
                           child: Text(
                             "Termos e Política",
-                            style: GoogleFonts.inter(
+                            style: context.typography.headlineSmall.copyWith(
                               color: context.colors.textPrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -768,10 +737,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   icon: Icon(Icons.logout, color: context.colors.error),
                   label: Text(
                     'Sair da conta',
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.error,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
                     ),
                   ),
                   style: OutlinedButton.styleFrom(

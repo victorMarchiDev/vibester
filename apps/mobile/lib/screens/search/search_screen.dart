@@ -10,6 +10,7 @@ import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/utils/search_bar.dart';
 import 'package:mobile/utils/search_state.dart';
 import 'package:mobile/widgets/cards/place/place_card.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -190,7 +191,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Center(
                     child: Text(
                       _searchError!,
-                      style: TextStyle(color: context.colors.textDisabled),
+                      style: context.typography.bodyMedium.copyWith(
+                        color: context.colors.textDisabled,
+                      ),
                     ),
                   ),
                 )
@@ -207,9 +210,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       const SizedBox(height: 12),
                       Text(
                         'Nenhum usuário encontrado',
-                        style: TextStyle(
+                        style: context.typography.bodyLarge.copyWith(
                           color: context.colors.textDisabled,
-                          fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -222,10 +224,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     padding: const EdgeInsets.only(left: 16, bottom: 8),
                     child: Text(
                       'Usuários',
-                      style: TextStyle(
+                      style: context.typography.headlineMedium.copyWith(
                         color: context.colors.textPrimary,
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -258,10 +259,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         margin: const EdgeInsets.only(left: 16),
                         child: Text(
                           "Buscas Recentes",
-                          style: TextStyle(
+                          style: context.typography.displayMedium.copyWith(
                             color: context.colors.textPrimary,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -275,9 +275,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           margin: const EdgeInsets.only(right: 7),
                           child: Text(
                             "Limpar",
-                            style: TextStyle(
+                            style: context.typography.bodySmall.copyWith(
                               color: context.colors.ambar,
-                              fontSize: 13,
                             ),
                           ),
                         ),
@@ -300,7 +299,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           title: Text(
                             pesquisa,
-                            style: TextStyle(
+                            style: context.typography.bodyMedium.copyWith(
                               color: context.colors.textDisabled,
                             ),
                           ),
@@ -354,10 +353,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         margin: const EdgeInsets.only(left: 15),
                         child: Text(
                           _categoriaSelecionada ?? "Descubra por Categoria",
-                          style: TextStyle(
+                          style: context.typography.displayMedium.copyWith(
                             color: context.colors.textPrimary,
                             fontSize: 25,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -390,7 +388,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         return pares.map((par) {
                           return Row(
                             children: par.map((cat) {
-                              return GestureDetector(
+                              return VibesterPressable(
+                                borderRadius: BorderRadius.circular(16),
                                 onTap: () =>
                                     _selecionarCategoria(cat['label']!),
                                 child: Container(
@@ -422,18 +421,20 @@ class _SearchScreenState extends State<SearchScreen> {
                                         left: 10,
                                         child: Text(
                                           cat['label']!,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.white38,
-                                                blurRadius: 8,
-                                                offset: Offset(1, 1),
+                                          style: context
+                                              .typography
+                                              .headlineMedium
+                                              .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                shadows: const [
+                                                  Shadow(
+                                                    color: Colors.white38,
+                                                    blurRadius: 8,
+                                                    offset: Offset(1, 1),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
                                         ),
                                       ),
                                     ],
@@ -469,18 +470,16 @@ class _SearchScreenState extends State<SearchScreen> {
                         const SizedBox(height: 12),
                         Text(
                           'Nenhum lugar encontrado',
-                          style: TextStyle(
+                          style: context.typography.bodyLarge.copyWith(
                             color: context.colors.textDisabled,
-                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'Ainda não há estabelecimentos nessa categoria',
-                          style: TextStyle(
+                          style: context.typography.bodySmall.copyWith(
                             color: context.colors.textDisabled,
-                            fontSize: 13,
                           ),
                         ),
                       ],
@@ -551,18 +550,16 @@ class _UserSearchTile extends StatelessWidget {
                 children: [
                   Text(
                     user.name ?? user.username ?? '',
-                    style: TextStyle(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textPrimary,
                       fontSize: 15,
-                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   if (user.username != null && user.username!.isNotEmpty)
                     Text(
                       '@${user.username}',
-                      style: TextStyle(
+                      style: context.typography.bodySmall.copyWith(
                         color: context.colors.textMuted,
-                        fontSize: 13,
                       ),
                     ),
                 ],
@@ -570,7 +567,7 @@ class _UserSearchTile extends StatelessWidget {
             ),
             Text(
               '${user.followers} seguidores',
-              style: TextStyle(
+              style: context.typography.bodySmall.copyWith(
                 color: context.colors.textDisabled,
                 fontSize: 12,
               ),

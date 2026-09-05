@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/models/place/place_model.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/service/highlights/close_to_you_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/utils/location_satate.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 
 class CloseToYou extends StatefulWidget {
   const CloseToYou({super.key});
@@ -90,14 +92,18 @@ class _CloseToYouState extends State<CloseToYou> {
           Text(
             _erro!,
             textAlign: TextAlign.center,
-            style: TextStyle(color: context.colors.textDisabled, fontSize: 14),
+            style: context.typography.bodyMedium.copyWith(
+              color: context.colors.textDisabled,
+            ),
           ),
           const SizedBox(height: 12),
           TextButton(
             onPressed: _buscarEstabelecimentosProximos,
             child: Text(
               'Tentar novamente',
-              style: TextStyle(color: context.colors.ambar),
+              style: context.typography.titleMedium.copyWith(
+                color: context.colors.ambar,
+              ),
             ),
           ),
         ],
@@ -110,7 +116,9 @@ class _CloseToYouState extends State<CloseToYou> {
           padding: const EdgeInsets.symmetric(vertical: 24),
           child: Text(
             'Nenhum estabelecimento encontrado perto de você',
-            style: TextStyle(color: context.colors.textDisabled, fontSize: 14),
+            style: context.typography.bodyMedium.copyWith(
+              color: context.colors.textDisabled,
+            ),
           ),
         ),
       );
@@ -123,160 +131,165 @@ class _CloseToYouState extends State<CloseToYou> {
       itemBuilder: (context, index) {
         final place = _places[index];
 
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            color: context.colors.navy,
-            borderRadius: BorderRadius.circular(70),
-            border: Border.all(
-              color: context.colors.brasa.withAlpha(60),
-              width: 2,
-            ),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(70),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  AppRoutes.placeDetail,
-                  arguments: place.id,
-                );
-              },
+        return StaggeredEntrance(
+          index: index,
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: context.colors.navy,
               borderRadius: BorderRadius.circular(70),
-              splashColor: context.colors.ambar,
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 15,
-                      top: 15,
-                      bottom: 15,
-                      right: 90,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: context.colors.darkGrey,
-                              width: 1,
+              border: Border.all(
+                color: context.colors.brasa.withAlpha(60),
+                width: 2,
+              ),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(70),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.placeDetail,
+                    arguments: place.id,
+                  );
+                },
+                borderRadius: BorderRadius.circular(70),
+                splashColor: context.colors.ambar,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 15,
+                        top: 15,
+                        bottom: 15,
+                        right: 90,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: context.colors.darkGrey,
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          child: ClipOval(
-                            child: SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: place.profileImage.isEmpty
-                                  ? Container(
-                                      color: context.colors.darkGrey,
-                                      child: Icon(
-                                        Icons.storefront,
-                                        color: context.colors.textDisabled,
+                            child: ClipOval(
+                              child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: place.profileImage.isEmpty
+                                    ? Container(
+                                        color: context.colors.darkGrey,
+                                        child: Icon(
+                                          Icons.storefront,
+                                          color: context.colors.textDisabled,
+                                        ),
+                                      )
+                                    : CachedNetworkImage(
+                                        imageUrl: place.profileImage,
+                                        fit: BoxFit.cover,
+                                        fadeInDuration: AppMotion.imageFade,
+                                        fadeOutDuration: AppMotion.imageFade,
+                                        errorWidget: (context, error, stack) {
+                                          return Container(
+                                            color: context.colors.darkGrey,
+                                            child: Icon(
+                                              Icons.storefront,
+                                              color:
+                                                  context.colors.textDisabled,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    )
-                                  : CachedNetworkImage(
-                                      imageUrl: place.profileImage,
-                                      fit: BoxFit.cover,
-                                      fadeInDuration: Duration.zero,
-                                      fadeOutDuration: Duration.zero,
-                                      errorWidget: (context, error, stack) {
-                                        return Container(
-                                          color: context.colors.darkGrey,
-                                          child: Icon(
-                                            Icons.storefront,
-                                            color: context.colors.textDisabled,
-                                          ),
-                                        );
-                                      },
-                                    ),
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                place.nome,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: context.colors.textPrimary,
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.bold,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  place.nome,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: context.typography.headlineMedium
+                                      .copyWith(
+                                        color: context.colors.textPrimary,
+                                        fontSize: 23,
+                                      ),
                                 ),
-                              ),
-                              const SizedBox(height: 2),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.star_border,
-                                    color: context.colors.ambar,
-                                    size: 20,
-                                  ),
-                                  SizedBox(width: 3),
-                                  Text(
-                                    '${place.avaliacao}',
-                                    style: TextStyle(
-                                      color: context.colors.textMuted,
-                                      fontSize: 15,
+                                const SizedBox(height: 2),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.star_border,
+                                      color: context.colors.ambar,
+                                      size: 20,
                                     ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Icon(
-                                    Icons.circle,
-                                    color: context.colors.textDisabled,
-                                    size: 8,
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    '${place.distancia?.toStringAsFixed(0) ?? "?"}m',
-                                    style: TextStyle(
-                                      color: context.colors.textMuted,
-                                      fontSize: 15,
+                                    SizedBox(width: 3),
+                                    Text(
+                                      '${place.avaliacao}',
+                                      style: context.typography.bodyLarge
+                                          .copyWith(
+                                            color: context.colors.textMuted,
+                                            fontSize: 15,
+                                          ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      Icons.circle,
+                                      color: context.colors.textDisabled,
+                                      size: 8,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      '${place.distancia?.toStringAsFixed(0) ?? "?"}m',
+                                      style: context.typography.bodyLarge
+                                          .copyWith(
+                                            color: context.colors.textMuted,
+                                            fontSize: 15,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
 
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    right: 25,
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: context.colors.ambar,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 4,
-                        ),
-                        child: Text(
-                          "Ir",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                    Positioned(
+                      top: 0,
+                      bottom: 0,
+                      right: 25,
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: context.colors.ambar,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 4,
+                          ),
+                          child: Text(
+                            "Ir",
+                            style: context.typography.titleMedium.copyWith(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

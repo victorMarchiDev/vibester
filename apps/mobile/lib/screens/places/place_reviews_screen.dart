@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/place/place_model.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/event/review_card.dart';
 import 'package:mobile/widgets/indicators/review_indicator.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
 
 class PlaceReviewsScreen extends StatefulWidget {
   final PlaceModel place;
@@ -18,9 +20,10 @@ class _PlaceReviewsScreenState extends State<PlaceReviewsScreen> {
   Widget _buildFiltroBtn(String label, int index) {
     final selecionado = _filtroSelecionado == index;
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 1000),
-      curve: Curves.easeOutBack,
+      duration: context.adaptiveMotion(AppMotion.normal),
+      curve: AppMotion.standard,
       decoration: BoxDecoration(
+        color: selecionado ? context.colors.ambar : context.colors.noturno,
         borderRadius: BorderRadius.all(Radius.circular(19)),
         border: selecionado
             ? Border.all(color: context.colors.border, width: 0)
@@ -29,23 +32,21 @@ class _PlaceReviewsScreenState extends State<PlaceReviewsScreen> {
       child: SizedBox(
         width: 100,
         height: 40,
-        child: FloatingActionButton(
-          backgroundColor: selecionado
-              ? context.colors.ambar
-              : context.colors.noturno,
-          onPressed: () {
+        child: VibesterPressable(
+          borderRadius: BorderRadius.circular(19),
+          onTap: () {
             setState(() {
               _filtroSelecionado = index;
             });
           },
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              color: selecionado
-                  ? context.colors.textPrimary
-                  : context.colors.textMuted,
-              fontWeight: FontWeight.bold,
+          child: Center(
+            child: Text(
+              label,
+              style: context.typography.labelSmall.copyWith(
+                color: selecionado
+                    ? context.colors.textPrimary
+                    : context.colors.textMuted,
+              ),
             ),
           ),
         ),

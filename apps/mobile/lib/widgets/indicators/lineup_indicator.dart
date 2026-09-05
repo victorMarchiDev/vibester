@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/models/event/lineup_model.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 
@@ -38,8 +38,8 @@ class LineupIndicator extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: artista.url,
                     fit: BoxFit.cover,
-                    fadeInDuration: Duration.zero,
-                    fadeOutDuration: Duration.zero,
+                    fadeInDuration: AppMotion.imageFade,
+                    fadeOutDuration: AppMotion.imageFade,
                     errorWidget: (_, __, ___) => const Placeholder(),
                   ),
                 ),
@@ -47,9 +47,8 @@ class LineupIndicator extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 artista.nome,
-                style: GoogleFonts.inter(
+                style: context.typography.bodySmall.copyWith(
                   color: context.colors.textPrimary,
-                  fontSize: 13,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),

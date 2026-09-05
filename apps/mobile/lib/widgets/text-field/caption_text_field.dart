@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 
 class CaptionTextField extends StatefulWidget {
@@ -45,10 +46,9 @@ class _CaptionTextFieldState extends State<CaptionTextField> {
       children: [
         Text(
           'Legenda',
-          style: TextStyle(
+          style: context.typography.titleSmall.copyWith(
             color: context.colors.textSecondary,
             fontSize: 13,
-            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
@@ -61,10 +61,8 @@ class _CaptionTextFieldState extends State<CaptionTextField> {
           maxLines: 5,
           cursorColor: context.colors.textMuted,
           minLines: 4,
-          style: TextStyle(
+          style: context.typography.bodyMedium.copyWith(
             color: context.colors.textPrimary,
-            fontSize: 14,
-            height: 1.5,
           ),
           decoration: InputDecoration(
             hintText: 'Compartilhe sua experiência...',
@@ -73,7 +71,10 @@ class _CaptionTextFieldState extends State<CaptionTextField> {
             contentPadding: const EdgeInsets.all(16),
             filled: true,
             fillColor: context.colors.noturno,
-            errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
+            errorStyle: context.typography.bodySmall.copyWith(
+              color: context.colors.error,
+              fontSize: 12,
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18),
               borderSide: BorderSide(color: context.colors.border, width: 1.3),
@@ -104,14 +105,14 @@ class _CaptionTextFieldState extends State<CaptionTextField> {
         Align(
           alignment: Alignment.centerRight,
           child: AnimatedDefaultTextStyle(
-            duration: const Duration(milliseconds: 200),
-            style: TextStyle(
+            duration: context.adaptiveMotion(AppMotion.normal),
+            curve: AppMotion.standard,
+            style: context.typography.labelMedium.copyWith(
               color: remaining == 0
                   ? context.colors.error
                   : remaining <= 20
                   ? Colors.orangeAccent
                   : context.colors.textDisabled,
-              fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
             child: Text('$remaining caracteres restantes'),

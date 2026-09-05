@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
@@ -110,15 +109,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
               Text(
                 'Entrar com e-mail',
-                style: GoogleFonts.inter(
+                style: context.typography.displayLarge.copyWith(
                   color: context.colors.textPrimary,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 'Digite suas credenciais de acesso',
-                style: GoogleFonts.inter(color: context.colors.grey),
+                style: context.typography.bodyMedium.copyWith(
+                  color: context.colors.grey,
+                ),
               ),
 
               SizedBox(height: 30),
@@ -129,10 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(right: 220, bottom: 10),
                     child: Text(
                       'E-MAIL OU USUÁRIO',
-                      style: GoogleFonts.inter(
+                      style: context.typography.labelSmall.copyWith(
                         color: context.colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
                       ),
                     ),
                   ),
@@ -141,7 +138,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       controller: _emailOuUsuarioController,
                       textInputAction: TextInputAction.next,
-                      style: TextStyle(color: context.colors.textPrimary),
+                      style: context.typography.bodyLarge.copyWith(
+                        color: context.colors.textPrimary,
+                      ),
                       cursorColor: context.colors.ambar,
                       inputFormatters: [LengthLimitingTextInputFormatter(320)],
                       decoration: InputDecoration(
@@ -151,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        errorStyle: TextStyle(
+                        errorStyle: context.typography.bodySmall.copyWith(
                           color: context.colors.error,
                           fontSize: 12,
                         ),
@@ -204,10 +203,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(right: 290, bottom: 10),
                     child: Text(
                       'SENHA',
-                      style: GoogleFonts.inter(
+                      style: context.typography.labelSmall.copyWith(
                         color: context.colors.grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
                       ),
                     ),
                   ),
@@ -217,7 +214,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _senhaController,
                       obscureText: true,
                       textInputAction: TextInputAction.done,
-                      style: TextStyle(color: context.colors.textPrimary),
+                      style: context.typography.bodyLarge.copyWith(
+                        color: context.colors.textPrimary,
+                      ),
                       cursorColor: context.colors.ambar,
                       inputFormatters: [LengthLimitingTextInputFormatter(20)],
                       decoration: InputDecoration(
@@ -227,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        errorStyle: TextStyle(
+                        errorStyle: context.typography.bodySmall.copyWith(
                           color: context.colors.error,
                           fontSize: 12,
                         ),
@@ -296,9 +295,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         'Esqueci minha senha',
-                        style: GoogleFonts.inter(
+                        style: context.typography.titleSmall.copyWith(
                           color: context.colors.error,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),

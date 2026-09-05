@@ -5,6 +5,7 @@ import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/event/i_will_go_event_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class IWillGoScreen extends StatefulWidget {
@@ -51,10 +52,9 @@ class _IWillGoScreenState extends State<IWillGoScreen> {
                     children: [
                       Text(
                         'Eventos confirmados',
-                        style: TextStyle(
+                        style: context.typography.headlineMedium.copyWith(
                           color: context.colors.textPrimary,
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -63,10 +63,8 @@ class _IWillGoScreenState extends State<IWillGoScreen> {
                     children: [
                       Text(
                         'Os eventos que você já confirmou presença.',
-                        style: TextStyle(
+                        style: context.typography.labelMedium.copyWith(
                           color: context.colors.textDisabled,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -76,15 +74,18 @@ class _IWillGoScreenState extends State<IWillGoScreen> {
             );
           }
 
-          return IWillGoEventCard(
-            event: favorites[index - 1],
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.eventDetail,
-                arguments: favorites[index - 1],
-              );
-            },
+          return StaggeredEntrance(
+            index: index - 1,
+            child: IWillGoEventCard(
+              event: favorites[index - 1],
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.eventDetail,
+                  arguments: favorites[index - 1],
+                );
+              },
+            ),
           );
         },
       ),

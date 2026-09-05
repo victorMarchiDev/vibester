@@ -67,7 +67,9 @@ class _DatePickerFieldView extends StatelessWidget {
               selectionHandleColor: context.colors.ambar,
             ),
             inputDecorationTheme: InputDecorationTheme(
-              labelStyle: TextStyle(color: context.colors.ambar),
+              labelStyle: context.typography.bodyLarge.copyWith(
+                color: context.colors.ambar,
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.white10),
                 borderRadius: BorderRadius.circular(8),
@@ -120,7 +122,7 @@ class _DatePickerFieldView extends StatelessWidget {
                   selectedDate != null
                       ? DateFormat('dd/MM/yyyy', 'pt_BR').format(selectedDate!)
                       : labelText,
-                  style: TextStyle(
+                  style: context.typography.bodyLarge.copyWith(
                     color: selectedDate != null ? Colors.white : Colors.white54,
                   ),
                 ),
@@ -138,7 +140,10 @@ class _DatePickerFieldView extends StatelessWidget {
             padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               errorText!,
-              style: const TextStyle(color: Colors.redAccent, fontSize: 12),
+              style: context.typography.bodySmall.copyWith(
+                color: Colors.redAccent,
+                fontSize: 12,
+              ),
             ),
           ),
       ],

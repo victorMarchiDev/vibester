@@ -53,10 +53,8 @@ class _StatItem extends StatelessWidget {
           children: [
             Text(
               value,
-              style: TextStyle(
+              style: context.typography.headlineSmall.copyWith(
                 color: context.colors.textPrimary,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
               ),
             ),
             if (showStar) ...[
@@ -68,7 +66,7 @@ class _StatItem extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: TextStyle(
+          style: context.typography.labelSmall.copyWith(
             color: context.colors.textMuted,
             fontSize: 11,
             letterSpacing: 1.2,

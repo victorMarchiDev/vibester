@@ -4,6 +4,7 @@ import 'package:mobile/providers/place/place_list_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/place/place_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class FavoritePlacesScreen extends StatefulWidget {
@@ -49,9 +50,8 @@ class _FavoritePlacesScreenState extends State<FavoritePlacesScreen>
               Center(
                 child: Text(
                   'Nenhum lugar marcado como favorito',
-                  style: TextStyle(
+                  style: context.typography.bodyLarge.copyWith(
                     color: context.colors.textDisabled,
-                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -63,15 +63,18 @@ class _FavoritePlacesScreenState extends State<FavoritePlacesScreen>
             itemCount: favorites.length + 1,
             itemBuilder: (context, index) {
               if (index == favorites.length) return SizedBox(height: 80);
-              return PlaceCard(
-                place: favorites[index],
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.placeDetail,
-                    arguments: favorites[index].id,
-                  );
-                },
+              return StaggeredEntrance(
+                index: index,
+                child: PlaceCard(
+                  place: favorites[index],
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.placeDetail,
+                      arguments: favorites[index].id,
+                    );
+                  },
+                ),
               );
             },
           );

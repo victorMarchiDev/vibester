@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/interest_model.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 
@@ -36,9 +35,8 @@ class _CategoryHighlightsSectionState extends State<CategoryHighlightsSection> {
                   const SizedBox(width: 6),
                   Text(
                     interest.label,
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleSmall.copyWith(
                       color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

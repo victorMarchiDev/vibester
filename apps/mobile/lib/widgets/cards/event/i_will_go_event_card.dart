@@ -2,8 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/models/event/event_model.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/utils/app_progress_indicator.dart';
+import 'package:mobile/utils/hero_tags.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/motion/vibester_pressable.dart';
 
 class IWillGoEventCard extends StatelessWidget {
   final EventModel event;
@@ -13,8 +16,10 @@ class IWillGoEventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return VibesterPressable(
       onTap: onTap,
+      pressScale: AppMotion.scalePress,
+      borderRadius: BorderRadius.circular(16),
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(
@@ -36,14 +41,18 @@ class IWillGoEventCard extends StatelessWidget {
                         child: Stack(
                           fit: StackFit.expand,
                           children: [
-                            CachedNetworkImage(
-                              imageUrl: event.imageUrl,
-                              fit: BoxFit.cover,
-                              fadeInDuration: Duration.zero,
-                              fadeOutDuration: Duration.zero,
-                              placeholder: (_, _) =>
-                                  const Center(child: AppProgressIndicator()),
-                              errorWidget: (_, _, _) => const Icon(Icons.error),
+                            Hero(
+                              tag: eventImageHeroTag(event),
+                              child: CachedNetworkImage(
+                                imageUrl: event.imageUrl,
+                                fit: BoxFit.cover,
+                                fadeInDuration: AppMotion.imageFade,
+                                fadeOutDuration: AppMotion.imageFade,
+                                placeholder: (_, _) =>
+                                    const Center(child: AppProgressIndicator()),
+                                errorWidget: (_, _, _) =>
+                                    const Icon(Icons.error),
+                              ),
                             ),
 
                             // data
@@ -68,21 +77,22 @@ class IWillGoEventCard extends StatelessWidget {
                                       DateFormat("dd", "pt_BR")
                                           .format(event.dataDoEvento)
                                           .toUpperCase(),
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: context.typography.headlineSmall
+                                          .copyWith(
+                                            fontSize: 19,
+                                            color: Colors.white,
+                                            height: 1.0,
+                                          ),
                                     ),
                                     Text(
                                       DateFormat("MMM", "pt_BR")
                                           .format(event.dataDoEvento)
                                           .toUpperCase(),
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: context.colors.ambar,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: context.typography.titleSmall
+                                          .copyWith(
+                                            color: context.colors.ambar,
+                                            height: 1.0,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -123,11 +133,10 @@ class IWillGoEventCard extends StatelessWidget {
                                   children: [
                                     Text(
                                       event.categoria,
-                                      style: TextStyle(
-                                        fontSize: 8,
-                                        color: context.colors.ambar,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: context.typography.labelSmall
+                                          .copyWith(
+                                            color: context.colors.ambar,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -153,37 +162,52 @@ class IWillGoEventCard extends StatelessWidget {
                                             event.titulo.toUpperCase(),
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: context.colors.textPrimary,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            style: context
+                                                .typography
+                                                .labelMedium
+                                                .copyWith(
+                                                  color: context
+                                                      .colors
+                                                      .textPrimary,
+                                                  height: 1.0,
+                                                ),
                                           ),
                                         ),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
-                                          DateFormat("EEE  HH:mm", "pt_BR")
-                                              .format(event.dataDoEvento)
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            color: context.colors.textDisabled,
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          child: Text(
+                                            DateFormat("EEE  HH:mm", "pt_BR")
+                                                .format(event.dataDoEvento)
+                                                .toUpperCase(),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: context.typography.titleSmall
+                                                .copyWith(
+                                                  fontSize: 13,
+                                                  color: context
+                                                      .colors
+                                                      .textDisabled,
+                                                  height: 1.0,
+                                                ),
                                           ),
                                         ),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Text(
-                                          "Voce confirmou sua presença!",
-                                          style: TextStyle(
-                                            fontSize: 8,
-                                            color: context.colors.ambar,
-                                            fontWeight: FontWeight.bold,
+                                        Expanded(
+                                          child: Text(
+                                            "Voce confirmou sua presença!",
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: context.typography.labelSmall
+                                                .copyWith(
+                                                  color: context.colors.ambar,
+                                                  height: 1.0,
+                                                ),
                                           ),
                                         ),
                                       ],

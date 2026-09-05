@@ -42,10 +42,9 @@ class PlaceFavoriteCard extends StatelessWidget {
                       Text(
                         textAlign: TextAlign.center,
                         place.nome,
-                        style: TextStyle(
+                        style: context.typography.headlineSmall.copyWith(
                           color: context.colors.textPrimary,
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],

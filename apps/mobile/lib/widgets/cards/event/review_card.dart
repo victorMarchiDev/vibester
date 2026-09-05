@@ -43,9 +43,8 @@ class ReviewCard extends StatelessWidget {
                     children: [
                       Text(
                         nomeUsuario,
-                        style: TextStyle(
+                        style: context.typography.titleMedium.copyWith(
                           color: context.colors.textPrimary,
-                          fontWeight: FontWeight.bold,
                           fontSize: 15,
                         ),
                       ),
@@ -56,7 +55,7 @@ class ReviewCard extends StatelessWidget {
                 ),
                 Text(
                   tempo,
-                  style: TextStyle(
+                  style: context.typography.bodySmall.copyWith(
                     color: context.colors.textMuted,
                     fontSize: 12,
                   ),
@@ -69,10 +68,8 @@ class ReviewCard extends StatelessWidget {
             // Comentário
             Text(
               comentario,
-              style: TextStyle(
+              style: context.typography.bodyMedium.copyWith(
                 color: context.colors.textSecondary,
-                fontSize: 14,
-                height: 1.5,
               ),
             ),
           ],

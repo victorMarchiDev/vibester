@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/service/user/user_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
@@ -105,16 +104,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   Text(
                     'Criar conta',
-                    style: GoogleFonts.inter(
+                    style: context.typography.displayLarge.copyWith(
                       color: context.colors.textPrimary,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
 
                   Text(
                     'Preencha seus dados para começar',
-                    style: GoogleFonts.inter(color: context.colors.grey),
+                    style: context.typography.bodyMedium.copyWith(
+                      color: context.colors.grey,
+                    ),
                   ),
 
                   const SizedBox(height: 15),
@@ -125,10 +124,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.only(right: 280, bottom: 10),
                         child: Text(
                           'USUÁRIO',
-                          style: GoogleFonts.inter(
+                          style: context.typography.labelSmall.copyWith(
                             color: context.colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
                           ),
                         ),
                       ),
@@ -139,7 +136,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _nomeController,
 
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(color: context.colors.textPrimary),
+                          style: context.typography.bodyLarge.copyWith(
+                            color: context.colors.textPrimary,
+                          ),
                           cursorColor: context.colors.ambar,
 
                           inputFormatters: [
@@ -154,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            errorStyle: TextStyle(
+                            errorStyle: context.typography.bodySmall.copyWith(
                               color: context.colors.error,
                               fontSize: 12,
                             ),
@@ -211,10 +210,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.only(right: 280, bottom: 10),
                         child: Text(
                           'E-MAIL',
-                          style: GoogleFonts.inter(
+                          style: context.typography.labelSmall.copyWith(
                             color: context.colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
                           ),
                         ),
                       ),
@@ -225,7 +222,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _emailController,
 
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(color: context.colors.textPrimary),
+                          style: context.typography.bodyLarge.copyWith(
+                            color: context.colors.textPrimary,
+                          ),
                           cursorColor: context.colors.ambar,
 
                           inputFormatters: [
@@ -239,7 +238,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            errorStyle: TextStyle(
+                            errorStyle: context.typography.bodySmall.copyWith(
                               color: context.colors.error,
                               fontSize: 12,
                             ),
@@ -294,10 +293,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         Text(
                           'DATA DE NASCIMENTO',
-                          style: GoogleFonts.inter(
+                          style: context.typography.labelSmall.copyWith(
                             color: context.colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
                           ),
                         ),
                       ],
@@ -327,10 +324,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.only(right: 290, bottom: 10),
                         child: Text(
                           'SENHA',
-                          style: GoogleFonts.inter(
+                          style: context.typography.labelSmall.copyWith(
                             color: context.colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
                           ),
                         ),
                       ),
@@ -342,7 +337,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                           obscureText: true,
                           textInputAction: TextInputAction.done,
-                          style: TextStyle(color: context.colors.textPrimary),
+                          style: context.typography.bodyLarge.copyWith(
+                            color: context.colors.textPrimary,
+                          ),
                           cursorColor: context.colors.ambar,
 
                           inputFormatters: [
@@ -356,7 +353,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            errorStyle: TextStyle(
+                            errorStyle: context.typography.bodySmall.copyWith(
                               color: context.colors.error,
                               fontSize: 12,
                             ),

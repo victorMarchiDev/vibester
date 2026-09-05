@@ -4,6 +4,7 @@ import 'package:mobile/providers/events/events_list_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/event/event_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesEventsScreen extends StatefulWidget {
@@ -57,9 +58,8 @@ class _FavoritesEventsScreenState extends State<FavoritesEventsScreen>
               Center(
                 child: Text(
                   'Nenhum evento confirmado',
-                  style: TextStyle(
+                  style: context.typography.bodyLarge.copyWith(
                     color: context.colors.textDisabled,
-                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -70,15 +70,18 @@ class _FavoritesEventsScreenState extends State<FavoritesEventsScreen>
             padding: const EdgeInsets.symmetric(vertical: 16),
             itemCount: favorites.length,
             itemBuilder: (context, index) {
-              return EventCard(
-                event: favorites[index],
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppRoutes.eventDetail,
-                    arguments: favorites[index],
-                  );
-                },
+              return StaggeredEntrance(
+                index: index,
+                child: EventCard(
+                  event: favorites[index],
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.eventDetail,
+                      arguments: favorites[index],
+                    );
+                  },
+                ),
               );
             },
           );

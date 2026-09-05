@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/screens/feed/feed_screen.dart';
 import 'package:mobile/screens/highlights/highlights_section_screen.dart';
 import 'package:mobile/screens/places/hot_places_screen.dart';
@@ -108,10 +105,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
           dividerColor: Colors.transparent,
           indicatorColor: context.colors.ambar,
           labelPadding: const EdgeInsets.all(10),
-          labelStyle: GoogleFonts.inter(
-            fontSize: Platform.isIOS ? 14 : 16,
-            fontWeight: FontWeight.bold,
-          ),
+          labelStyle: context.typography.labelLarge,
           tabs: const <Widget>[
             Tab(text: 'FEED'),
             Tab(text: 'DESTAQUES'),

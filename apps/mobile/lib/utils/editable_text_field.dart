@@ -29,9 +29,8 @@ class EditableTextField extends StatelessWidget {
       child: Center(
         child: Text(
           label.toUpperCase(),
-          style: TextStyle(
+          style: context.typography.titleSmall.copyWith(
             color: context.colors.brasa,
-            fontWeight: FontWeight.bold,
           ),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,

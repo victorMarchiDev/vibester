@@ -17,10 +17,8 @@ class CategoryIndicator extends StatelessWidget {
       ),
       child: Text(
         categoria,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
+        style: context.typography.labelSmall.copyWith(
           color: context.colors.ambar,
-          fontSize: 10,
         ),
       ),
     );

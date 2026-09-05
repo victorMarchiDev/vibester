@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/interest_model.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/service/auth_storage_service.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/buttons/primary_button.dart';
 
@@ -29,7 +29,9 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
         foregroundColor: context.colors.textPrimary,
         title: Text(
           'Seus interesses',
-          style: GoogleFonts.inter(color: context.colors.textPrimary),
+          style: context.typography.titleLarge.copyWith(
+            color: context.colors.textPrimary,
+          ),
         ),
         backgroundColor: context.colors.darkGrey,
       ),
@@ -40,16 +42,16 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
           children: [
             Text(
               'O que você curte?',
-              style: GoogleFonts.inter(
-                fontSize: 22,
+              style: context.typography.headlineMedium.copyWith(
                 color: context.colors.ambar,
-                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 6),
             Text(
               'Selecione um ou mais interesses.',
-              style: GoogleFonts.inter(color: context.colors.textSecondary),
+              style: context.typography.bodyMedium.copyWith(
+                color: context.colors.textSecondary,
+              ),
             ),
             const SizedBox(height: 24),
             Wrap(
@@ -59,7 +61,8 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
                 return GestureDetector(
                   onTap: () => toggle(interest),
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                    duration: context.adaptiveMotion(AppMotion.normal),
+                    curve: AppMotion.standard,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 10,
@@ -81,9 +84,8 @@ class _UserInterestsScreenState extends State<UserInterestsScreen> {
                         const SizedBox(width: 6),
                         Text(
                           interest.label,
-                          style: GoogleFonts.inter(
+                          style: context.typography.titleSmall.copyWith(
                             color: context.colors.textPrimary,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

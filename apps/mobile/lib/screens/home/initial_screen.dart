@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 
@@ -34,10 +33,8 @@ class _InitialScreenState extends State<InitialScreen> {
                     flex: 1,
                     child: Text.rich(
                       TextSpan(
-                        style: GoogleFonts.inter(
-                          fontSize: 32,
+                        style: context.typography.displayLarge.copyWith(
                           color: context.colors.textPrimary,
-                          fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(text: 'Descubra os melhores '),
@@ -61,9 +58,8 @@ class _InitialScreenState extends State<InitialScreen> {
               SizedBox(height: 16),
               Text(
                 'Bares, baladas, restaurantes e eventos. Tudo em tempo real, perto de você.',
-                style: GoogleFonts.inter(
+                style: context.typography.titleSmall.copyWith(
                   color: context.colors.grey,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 16),
@@ -79,9 +75,8 @@ class _InitialScreenState extends State<InitialScreen> {
                   },
                   child: Text(
                     'COMEÇAR AGORA',
-                    style: GoogleFonts.inter(
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -97,9 +92,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 },
                 child: Text(
                   'JÁ TENHO UMA CONTA',
-                  style: GoogleFonts.inter(
+                  style: context.typography.titleMedium.copyWith(
                     color: context.colors.textPrimary,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -107,10 +101,8 @@ class _InitialScreenState extends State<InitialScreen> {
               Text.rich(
                 textAlign: TextAlign.center,
                 TextSpan(
-                  style: GoogleFonts.inter(
+                  style: context.typography.labelMedium.copyWith(
                     color: context.colors.textPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
                   ),
                   children: [
                     TextSpan(text: 'Ao continuar, voce concorda com nossos '),

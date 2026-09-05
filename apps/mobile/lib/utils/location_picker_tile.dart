@@ -32,11 +32,10 @@ class LocationPickerTile extends StatelessWidget {
             Expanded(
               child: Text(
                 selectedLocation ?? 'Adicionar localização',
-                style: TextStyle(
+                style: context.typography.bodyLarge.copyWith(
                   color: selectedLocation == null
                       ? Colors.white70
                       : Colors.white,
-                  fontSize: 16,
                 ),
               ),
             ),

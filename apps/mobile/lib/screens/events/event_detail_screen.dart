@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/event/event_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/service/event/event_service.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/utils/app_progress_indicator.dart';
+import 'package:mobile/utils/hero_tags.dart';
 import 'package:mobile/widgets/cards/users/map_event.dart';
 import 'package:mobile/widgets/indicators/lineup_indicator.dart';
 import 'package:mobile/widgets/buttons/secundary_button.dart';
 import 'package:mobile/widgets/buttons/tertiary_button.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme_extensions.dart';
 import 'package:intl/intl.dart';
@@ -118,14 +120,17 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     ),
 
                     //lugar da imagem
-                    child: CachedNetworkImage(
-                      imageUrl: _event.imageUrl,
-                      fit: BoxFit.cover,
-                      fadeInDuration: Duration.zero,
-                      fadeOutDuration: Duration.zero,
-                      placeholder: (_, _) =>
-                          const Center(child: AppProgressIndicator()),
-                      errorWidget: (_, _, _) => const Icon(Icons.error),
+                    child: Hero(
+                      tag: eventImageHeroTag(_event),
+                      child: CachedNetworkImage(
+                        imageUrl: _event.imageUrl,
+                        fit: BoxFit.cover,
+                        fadeInDuration: AppMotion.imageFade,
+                        fadeOutDuration: AppMotion.imageFade,
+                        placeholder: (_, _) =>
+                            const Center(child: AppProgressIndicator()),
+                        errorWidget: (_, _, _) => const Icon(Icons.error),
+                      ),
                     ),
                   ),
                 ),
@@ -193,9 +198,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
                           child: Text(
                             _event.categoria,
-                            style: GoogleFonts.inter(
+                            style: context.typography.labelMedium.copyWith(
                               color: context.colors.ambar,
-                              fontWeight: FontWeight.bold,
                               fontSize: 16,
                               letterSpacing: 4,
 
@@ -218,9 +222,8 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             _event.titulo,
-                            style: GoogleFonts.inter(
+                            style: context.typography.displayLarge.copyWith(
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
                               fontSize: 41,
 
                               //possivel sombra (teste)
@@ -243,123 +246,120 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
           //Infos basicas e botões de "Vou ir" e "Garantir ingresso"
           //===============================================================================
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          StaggeredEntrance(
+            index: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
 
-            child: Column(
-              children: [
-                const SizedBox(height: 5),
+              child: Column(
+                children: [
+                  const SizedBox(height: 5),
 
-                //Caixa com infos basicas sobre o evento (trocar infos fixas por variaveis posteriormente)
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
-                  ),
+                  //Caixa com infos basicas sobre o evento (trocar infos fixas por variaveis posteriormente)
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
 
-                  decoration: BoxDecoration(
-                    color: context.colors.navy,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                    decoration: BoxDecoration(
+                      color: context.colors.navy,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
 
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'DATA & HORA',
-                              style: GoogleFonts.inter(
-                                color: context.colors.grey,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              DateFormat(
-                                "EEE dd MMM  HH:mm",
-                                "pt_BR",
-                              ).format(_event.dataDoEvento),
-                              style: GoogleFonts.inter(
-                                color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // Linha divisória
-                      Container(
-                        width: 1,
-                        height: 40,
-                        color: context.colors.border,
-                      ),
-
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'LOCAL',
-                                style: GoogleFonts.inter(
+                                'DATA & HORA',
+                                style: context.typography.labelSmall.copyWith(
                                   color: context.colors.grey,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                _event.localizacao,
-                                style: GoogleFonts.inter(
+                                DateFormat(
+                                  "EEE dd MMM  HH:mm",
+                                  "pt_BR",
+                                ).format(_event.dataDoEvento),
+                                style: context.typography.titleSmall.copyWith(
                                   color: context.colors.textPrimary,
-                                  fontWeight: FontWeight.bold,
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
+
+                        // Linha divisória
+                        Container(
+                          width: 1,
+                          height: 40,
+                          color: context.colors.border,
+                        ),
+
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'LOCAL',
+                                  style: context.typography.labelSmall.copyWith(
+                                    color: context.colors.grey,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  _event.localizacao,
+                                  style: context.typography.titleSmall.copyWith(
+                                    color: context.colors.textPrimary,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
 
-                //Espaçamento entre itens
-                const SizedBox(height: 16),
+                  //Espaçamento entre itens
+                  const SizedBox(height: 16),
 
-                Column(
-                  //Criar efeitp de confirmados e add o coração de curtida
-                ),
+                  Column(
+                    //Criar efeitp de confirmados e add o coração de curtida
+                  ),
 
-                //Espaçamento entre itens
-                const SizedBox(height: 16),
+                  //Espaçamento entre itens
+                  const SizedBox(height: 16),
 
-                //Botão de "VOU IR" (add função posteriormente)
-                TertiaryButton(
-                  label: "VOU IR",
-                  state: _event.isFavorite
-                      ? ButtonState.success
-                      : ButtonState.idle,
-                  onPressed: _alternarPresenca,
-                ),
+                  //Botão de "VOU IR" (add função posteriormente)
+                  TertiaryButton(
+                    label: "VOU IR",
+                    state: _event.isFavorite
+                        ? ButtonState.success
+                        : ButtonState.idle,
+                    onPressed: _alternarPresenca,
+                  ),
 
-                //Espaçamento entre itens
-                const SizedBox(height: 16),
+                  //Espaçamento entre itens
+                  const SizedBox(height: 16),
 
-                //Botão de "GARANTIR INGRESSO" (add função posteriormente)
-                SecundaryButton(
-                  label: "GARANTIR INGRESSO",
-                  icon: Icons.local_activity,
-                  onPressed: () {},
-                ),
-              ],
+                  //Botão de "GARANTIR INGRESSO" (add função posteriormente)
+                  SecundaryButton(
+                    label: "GARANTIR INGRESSO",
+                    icon: Icons.local_activity,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
 
@@ -368,51 +368,50 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
           //Line-up com artistas (Criar uma linha com os icones de perfil dos artistas envolvidos)
           //===============================================================================
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Line-up",
-                    style: GoogleFonts.inter(
-                      color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+          StaggeredEntrance(
+            index: 1,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Line-up",
+                      style: context.typography.headlineMedium.copyWith(
+                        color: context.colors.textPrimary,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
 
-                //Lista de line-ups
-                const SizedBox(height: 10),
-                LineupIndicator(lineup: _event.lineUp),
-                const SizedBox(height: 10),
+                  //Lista de line-ups
+                  const SizedBox(height: 10),
+                  LineupIndicator(lineup: _event.lineUp),
+                  const SizedBox(height: 10),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Sobre o Evento",
-                    style: GoogleFonts.inter(
-                      color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Sobre o Evento",
+                      style: context.typography.headlineMedium.copyWith(
+                        color: context.colors.textPrimary,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Informações importantes",
-                    style: GoogleFonts.inter(
-                      color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Informações importantes",
+                      style: context.typography.labelMedium.copyWith(
+                        color: context.colors.textPrimary,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
@@ -421,15 +420,16 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
           //Sobre o evento (Caixa de descrições ajustavel ao tamanho da descrição)
           //===============================================================================
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              _event.informacoes,
-              textAlign: TextAlign.left,
-              style: GoogleFonts.inter(
-                color: context.colors.textPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+          StaggeredEntrance(
+            index: 2,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                _event.informacoes,
+                textAlign: TextAlign.left,
+                style: context.typography.bodyMedium.copyWith(
+                  color: context.colors.textPrimary,
+                ),
               ),
             ),
           ),
@@ -439,40 +439,40 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
 
           //Localização e link pro maps
           //===============================================================================
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Localização",
-                    style: GoogleFonts.inter(
-                      color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+          StaggeredEntrance(
+            index: 3,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Localização",
+                      style: context.typography.headlineMedium.copyWith(
+                        color: context.colors.textPrimary,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
 
-                const SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
-                MapEvent(endereco: _event.localizacao),
+                  MapEvent(endereco: _event.localizacao),
 
-                const SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    _event.localizacao,
-                    style: GoogleFonts.inter(
-                      color: context.colors.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _event.localizacao,
+                      style: context.typography.bodyMedium.copyWith(
+                        color: context.colors.textPrimary,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           //===============================================================================

@@ -6,12 +6,12 @@ import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/service/user/user_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/providers/events/events_list_provider.dart';
 import 'package:mobile/providers/place/place_list_provider.dart';
 import 'package:mobile/screens/events/favorites_events_screen.dart';
 import 'package:mobile/screens/highlights/property_highlights_screen.dart';
 import 'package:mobile/screens/places/favorite_places_screen.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/utils/divider.dart';
 import 'package:mobile/utils/editable_text_field.dart';
@@ -139,11 +139,15 @@ class UserProfileScreenState extends State<UserProfileScreen>
             alignment: Alignment.center,
             children: [
               AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
+                duration: context.adaptiveMotion(AppMotion.normal),
+                curve: AppMotion.standard,
                 opacity: _showAppBarAvatar ? 1.0 : 0.0,
                 child: AnimatedSlide(
-                  duration: Duration(milliseconds: 300),
-                  offset: _showAppBarAvatar ? Offset(-1.2, 0) : Offset(-1.2, 0),
+                  duration: context.adaptiveMotion(AppMotion.normal),
+                  curve: AppMotion.standard,
+                  offset: _showAppBarAvatar
+                      ? Offset.zero
+                      : const Offset(-0.3, 0),
                   child: CircleAvatar(
                     radius: 16,
                     backgroundImage: CachedNetworkImageProvider(
@@ -153,14 +157,13 @@ class UserProfileScreenState extends State<UserProfileScreen>
                 ),
               ),
               AnimatedSlide(
-                duration: Duration(milliseconds: 300),
+                duration: context.adaptiveMotion(AppMotion.normal),
+                curve: AppMotion.standard,
                 offset: _showAppBarAvatar ? Offset(0.19, 0) : Offset(0, 0),
                 child: Text(
                   user.nomeUsuario,
-                  style: GoogleFonts.inter(
+                  style: context.typography.titleMedium.copyWith(
                     color: context.colors.textPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
                 ),
               ),
@@ -203,10 +206,9 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         fit: BoxFit.scaleDown,
                         child: Text(
                           '${user.nome}',
-                          style: GoogleFonts.inter(
+                          style: context.typography.displayLarge.copyWith(
                             color: context.colors.textPrimary,
                             fontSize: 35,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -232,9 +234,8 @@ class UserProfileScreenState extends State<UserProfileScreen>
 
                     Text(
                       user.bio,
-                      style: GoogleFonts.inter(
+                      style: context.typography.titleSmall.copyWith(
                         color: context.colors.textSecondary,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
@@ -247,17 +248,14 @@ class UserProfileScreenState extends State<UserProfileScreen>
                           children: [
                             Text(
                               user.seguidores.toString(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.headlineSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               'SEGUIDORES',
-                              style: GoogleFonts.inter(
+                              style: context.typography.pixelBadge.copyWith(
                                 color: context.colors.textSecondary,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
@@ -270,17 +268,14 @@ class UserProfileScreenState extends State<UserProfileScreen>
                           children: [
                             Text(
                               user.seguindo.toString(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.headlineSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               'SEGUINDO',
-                              style: GoogleFonts.inter(
+                              style: context.typography.pixelBadge.copyWith(
                                 color: context.colors.textSecondary,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
@@ -293,17 +288,14 @@ class UserProfileScreenState extends State<UserProfileScreen>
                           children: [
                             Text(
                               user.eventosVisitados.toString(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.headlineSmall.copyWith(
                                 color: context.colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
                             ),
                             Text(
                               'EVENTOS',
-                              style: GoogleFonts.inter(
+                              style: context.typography.pixelBadge.copyWith(
                                 color: context.colors.textSecondary,
-                                fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
                             ),
@@ -338,10 +330,10 @@ class UserProfileScreenState extends State<UserProfileScreen>
                               child: Center(
                                 child: Text(
                                   'Configurações',
-                                  style: GoogleFonts.inter(
-                                    color: context.colors.textPrimary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: context.typography.titleMedium
+                                      .copyWith(
+                                        color: context.colors.textPrimary,
+                                      ),
                                 ),
                               ),
                             ),
@@ -371,10 +363,10 @@ class UserProfileScreenState extends State<UserProfileScreen>
                               child: Center(
                                 child: Text(
                                   'Compartilhar perfil',
-                                  style: GoogleFonts.inter(
-                                    color: context.colors.textPrimary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: context.typography.titleMedium
+                                      .copyWith(
+                                        color: context.colors.textPrimary,
+                                      ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -403,10 +395,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                       vertical: 6,
                     ),
                     labelPadding: EdgeInsets.all(10),
-                    labelStyle: GoogleFonts.inter(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    labelStyle: context.typography.labelMedium,
                     tabs: [
                       Tab(text: 'FOTOS'),
                       Tab(text: 'FAVORITOS'),

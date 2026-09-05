@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/models/event/event_model.dart';
 import 'package:mobile/routes/app_routes.dart';
@@ -49,8 +49,8 @@ class _WeeklyEventsState extends State<WeeklyEvents> {
                     child: CachedNetworkImage(
                       imageUrl: widget.evento.imageUrl,
                       fit: BoxFit.cover,
-                      fadeInDuration: Duration.zero,
-                      fadeOutDuration: Duration.zero,
+                      fadeInDuration: AppMotion.imageFade,
+                      fadeOutDuration: AppMotion.imageFade,
                       placeholder: (_, _) =>
                           const Center(child: AppProgressIndicator()),
                       errorWidget: (_, _, _) => const Icon(Icons.error),
@@ -65,10 +65,8 @@ class _WeeklyEventsState extends State<WeeklyEvents> {
                       children: [
                         Text(
                           widget.evento.titulo,
-                          style: GoogleFonts.inter(
+                          style: context.typography.titleMedium.copyWith(
                             color: context.colors.textPrimary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -86,10 +84,8 @@ class _WeeklyEventsState extends State<WeeklyEvents> {
                               DateFormat("EEE dd MMM  HH:mm", "pt_BR")
                                   .format(widget.evento.dataDoEvento)
                                   .toUpperCase(),
-                              style: GoogleFonts.inter(
+                              style: context.typography.labelMedium.copyWith(
                                 color: context.colors.textMuted,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],

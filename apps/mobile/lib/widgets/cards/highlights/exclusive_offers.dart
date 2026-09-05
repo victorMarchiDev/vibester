@@ -66,10 +66,9 @@ class _ExclusiveOffersState extends State<ExclusiveOffers> {
                         children: [
                           Text(
                             '${widget.offer.desconto}% OFF',
-                            style: TextStyle(
+                            style: context.typography.headlineMedium.copyWith(
                               color: context.colors.ambar,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(height: 2),
@@ -77,18 +76,16 @@ class _ExclusiveOffersState extends State<ExclusiveOffers> {
                             widget.offer.lugar,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: context.typography.headlineMedium.copyWith(
                               color: context.colors.textPrimary,
                               fontSize: 23,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
                             widget.offer.condicao,
-                            style: TextStyle(
+                            style: context.typography.labelSmall.copyWith(
                               color: context.colors.textDisabled,
                               fontSize: 11,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],

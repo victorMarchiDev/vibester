@@ -3,6 +3,7 @@ import 'package:mobile/providers/notification/notification_provider.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/notification/notification_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class NotificationsTab extends StatefulWidget {
@@ -53,9 +54,8 @@ class _NotificationsTabState extends State<NotificationsTab> {
         child: Center(
           child: Text(
             'Nenhuma notificação ainda',
-            style: TextStyle(
+            style: context.typography.bodyMedium.copyWith(
               color: context.colors.textDisabled,
-              fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -71,11 +71,21 @@ class _NotificationsTabState extends State<NotificationsTab> {
       children: [
         if (novas.isNotEmpty) ...[
           _SectionHeader(title: 'Novas'),
-          ...novas.map((n) => NotificationCard(notification: n)),
+          ...novas.asMap().entries.map(
+            (e) => StaggeredEntrance(
+              index: e.key,
+              child: NotificationCard(notification: e.value),
+            ),
+          ),
         ],
         if (visualizadas.isNotEmpty) ...[
           _SectionHeader(title: 'Visualizadas'),
-          ...visualizadas.map((n) => NotificationCard(notification: n)),
+          ...visualizadas.asMap().entries.map(
+            (e) => StaggeredEntrance(
+              index: e.key,
+              child: NotificationCard(notification: e.value),
+            ),
+          ),
         ],
       ],
     );
@@ -93,9 +103,8 @@ class _SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Text(
         title,
-        style: TextStyle(
+        style: context.typography.labelMedium.copyWith(
           color: context.colors.textMuted,
-          fontSize: 12,
           fontWeight: FontWeight.bold,
           letterSpacing: 0.5,
         ),

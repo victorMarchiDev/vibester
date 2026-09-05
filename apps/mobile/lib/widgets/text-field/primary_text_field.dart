@@ -23,15 +23,20 @@ class PrimaryTextField extends StatelessWidget {
         expands: true,
         maxLines: null,
         minLines: null,
-        style: TextStyle(color: Colors.white),
+        style: context.typography.bodyLarge.copyWith(color: Colors.white),
         cursorColor: context.colors.ambar,
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: TextStyle(color: Colors.white54),
+          labelStyle: context.typography.bodyLarge.copyWith(
+            color: Colors.white54,
+          ),
           filled: true,
           fillColor: Color(0xFF141414),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-          errorStyle: TextStyle(color: context.colors.error, fontSize: 12),
+          errorStyle: context.typography.bodySmall.copyWith(
+            color: context.colors.error,
+            fontSize: 12,
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
             borderSide: const BorderSide(color: Colors.white10, width: 1.3),

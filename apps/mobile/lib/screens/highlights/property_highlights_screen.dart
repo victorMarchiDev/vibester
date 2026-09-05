@@ -4,6 +4,7 @@ import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/service/highlights/highlights_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/highlights/highlights_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 import 'package:provider/provider.dart';
 
 class PropertyHighlightsScreen extends StatefulWidget {
@@ -121,9 +122,8 @@ class PropertyHighlightsScreenState extends State<PropertyHighlightsScreen>
                     const SizedBox(height: 12),
                     Text(
                       _erro!,
-                      style: TextStyle(
+                      style: context.typography.bodyLarge.copyWith(
                         color: context.colors.textDisabled,
-                        fontSize: 16,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -131,7 +131,9 @@ class PropertyHighlightsScreenState extends State<PropertyHighlightsScreen>
                       onPressed: _buscarHighlights,
                       child: Text(
                         'Tentar novamente',
-                        style: TextStyle(color: context.colors.ambar),
+                        style: context.typography.titleMedium.copyWith(
+                          color: context.colors.ambar,
+                        ),
                       ),
                     ),
                   ],
@@ -164,9 +166,8 @@ class PropertyHighlightsScreenState extends State<PropertyHighlightsScreen>
                     const SizedBox(height: 12),
                     Text(
                       'Nenhuma foto ainda',
-                      style: TextStyle(
+                      style: context.typography.bodyLarge.copyWith(
                         color: context.colors.textDisabled,
-                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -203,7 +204,10 @@ class PropertyHighlightsScreenState extends State<PropertyHighlightsScreen>
           bottom: 12,
         ),
         itemBuilder: (context, index) {
-          return HighlightsCard(highlight: _highlights[index]);
+          return StaggeredEntrance(
+            index: index,
+            child: HighlightsCard(highlight: _highlights[index]),
+          );
         },
       ),
     );

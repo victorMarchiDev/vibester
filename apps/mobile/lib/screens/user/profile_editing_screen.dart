@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
@@ -100,7 +99,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
         title: Text('Informações pessoais'),
         backgroundColor: context.colors.darkGrey,
         foregroundColor: context.colors.textPrimary,
-        titleTextStyle: GoogleFonts.inter(fontSize: 20),
+        titleTextStyle: context.typography.titleLarge.copyWith(fontSize: 20),
       ),
       body: Form(
         key: _formKey,
@@ -114,10 +113,8 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                 padding: const EdgeInsets.only(right: 290, bottom: 10),
                 child: Text(
                   'NOME',
-                  style: GoogleFonts.inter(
+                  style: context.typography.labelSmall.copyWith(
                     color: context.colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
                   ),
                 ),
               ),
@@ -129,7 +126,9 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                   controller: _nomeController,
 
                   textInputAction: TextInputAction.next,
-                  style: TextStyle(color: context.colors.textPrimary),
+                  style: context.typography.bodyLarge.copyWith(
+                    color: context.colors.textPrimary,
+                  ),
                   cursorColor: context.colors.ambar,
 
                   inputFormatters: [LengthLimitingTextInputFormatter(50)],
@@ -141,7 +140,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    errorStyle: TextStyle(
+                    errorStyle: context.typography.bodySmall.copyWith(
                       color: context.colors.error,
                       fontSize: 12,
                     ),
@@ -190,10 +189,8 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                 padding: const EdgeInsets.only(right: 300, bottom: 10),
                 child: Text(
                   'BIO',
-                  style: GoogleFonts.inter(
+                  style: context.typography.labelSmall.copyWith(
                     color: context.colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
                   ),
                 ),
               ),
@@ -207,7 +204,9 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                   maxLines: null,
                   expands: true,
                   textInputAction: TextInputAction.done,
-                  style: TextStyle(color: context.colors.textPrimary),
+                  style: context.typography.bodyLarge.copyWith(
+                    color: context.colors.textPrimary,
+                  ),
                   cursorColor: context.colors.ambar,
 
                   inputFormatters: [LengthLimitingTextInputFormatter(150)],
@@ -218,7 +217,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    errorStyle: TextStyle(
+                    errorStyle: context.typography.bodySmall.copyWith(
                       color: context.colors.error,
                       fontSize: 12,
                     ),

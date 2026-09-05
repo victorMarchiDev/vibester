@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/providers/place/place_list_provider.dart';
+import 'package:mobile/theme/theme_extensions.dart';
 import 'package:provider/provider.dart';
 
 class LocationPicker extends StatelessWidget {
@@ -15,12 +16,10 @@ class LocationPicker extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
               'Escolha um local',
-              style: TextStyle(
+              style: context.typography.headlineSmall.copyWith(
                 color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
               ),
             ),
 
@@ -40,11 +39,15 @@ class LocationPicker extends StatelessWidget {
                     ),
                     title: Text(
                       place.nome,
-                      style: const TextStyle(color: Colors.white),
+                      style: context.typography.bodyLarge.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                     subtitle: Text(
                       place.categoria,
-                      style: const TextStyle(color: Colors.white54),
+                      style: context.typography.bodySmall.copyWith(
+                        color: Colors.white54,
+                      ),
                     ),
                     onTap: () {
                       Navigator.pop(context, place.nome);

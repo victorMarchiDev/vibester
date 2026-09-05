@@ -4,6 +4,7 @@ import 'package:mobile/routes/app_routes.dart';
 import 'package:mobile/service/places/place_service.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/cards/place/place_card.dart';
+import 'package:mobile/widgets/motion/staggered_entrance.dart';
 
 class SearchByCategory extends StatefulWidget {
   final String categoria;
@@ -74,14 +75,18 @@ class _SearchByCategoryState extends State<SearchByCategory> {
           const SizedBox(height: 12),
           Text(
             _erro!,
-            style: TextStyle(color: context.colors.textDisabled, fontSize: 16),
+            style: context.typography.bodyLarge.copyWith(
+              color: context.colors.textDisabled,
+            ),
           ),
           const SizedBox(height: 16),
           TextButton(
             onPressed: _buscarPorCategoria,
             child: Text(
               'Tentar novamente',
-              style: TextStyle(color: context.colors.ambar),
+              style: context.typography.titleMedium.copyWith(
+                color: context.colors.ambar,
+              ),
             ),
           ),
         ],
@@ -100,16 +105,17 @@ class _SearchByCategoryState extends State<SearchByCategory> {
           const SizedBox(height: 12),
           Text(
             'Nenhum lugar encontrado',
-            style: TextStyle(
+            style: context.typography.bodyLarge.copyWith(
               color: context.colors.textDisabled,
-              fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             'Ainda não há estabelecimentos nessa categoria',
-            style: TextStyle(color: context.colors.textDisabled, fontSize: 13),
+            style: context.typography.bodySmall.copyWith(
+              color: context.colors.textDisabled,
+            ),
           ),
         ],
       );
@@ -119,15 +125,18 @@ class _SearchByCategoryState extends State<SearchByCategory> {
       padding: const EdgeInsets.only(bottom: 80),
       itemCount: _lista.length,
       itemBuilder: (context, index) {
-        return PlaceCard(
-          place: _lista[index],
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              AppRoutes.placeDetail,
-              arguments: _lista[index],
-            );
-          },
+        return StaggeredEntrance(
+          index: index,
+          child: PlaceCard(
+            place: _lista[index],
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.placeDetail,
+                arguments: _lista[index],
+              );
+            },
+          ),
         );
       },
     );

@@ -37,11 +37,11 @@ class ReviewIndicator extends StatelessWidget {
               children: [
                 Text(
                   avaliacao.toStringAsFixed(1),
-                  style: TextStyle(
+                  style: context.typography.displayLarge.copyWith(
                     color: context.colors.textPrimary,
                     fontSize: 52,
-                    fontWeight: FontWeight.bold,
                     height: 1,
+                    letterSpacing: 0,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -49,9 +49,8 @@ class ReviewIndicator extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   '$totalReviews reviews',
-                  style: TextStyle(
+                  style: context.typography.bodySmall.copyWith(
                     color: context.colors.textMuted,
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -103,7 +102,9 @@ class ReviewIndicator extends StatelessWidget {
             width: 12,
             child: Text(
               '$estrela',
-              style: TextStyle(color: context.colors.textMuted, fontSize: 12),
+              style: context.typography.bodySmall.copyWith(
+                color: context.colors.textMuted,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -124,7 +125,9 @@ class ReviewIndicator extends StatelessWidget {
             width: 32,
             child: Text(
               '${(percent * 100).toInt()}%',
-              style: TextStyle(color: context.colors.textMuted, fontSize: 12),
+              style: context.typography.bodySmall.copyWith(
+                color: context.colors.textMuted,
+              ),
               textAlign: TextAlign.right,
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:mobile/screens/favorites/user_favorites_screen.dart';
 import 'package:mobile/screens/home/home_tab.dart';
 import 'package:mobile/screens/search/search_screen.dart';
 import 'package:mobile/screens/user/user_profile_screen.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:mobile/theme/theme_extensions.dart';
 import 'package:mobile/widgets/navbar/custom_navbar.dart';
 import 'package:provider/provider.dart';
@@ -131,12 +132,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ignoring: !_navbarVisible,
           child: AnimatedSlide(
             offset: _navbarVisible ? Offset.zero : const Offset(0, 1),
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
+            duration: context.adaptiveMotion(AppMotion.normal),
+            curve: AppMotion.standard,
             child: AnimatedOpacity(
               opacity: _navbarVisible ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
+              duration: context.adaptiveMotion(AppMotion.normal),
+              curve: AppMotion.standard,
               child: CustomNavbar(
                 currentIndex: _currentIndex,
                 //Serve pra todas as telas resetarem ao trocar de tela, pra não perder a barra

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/theme/app_motion.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/models/highlights/highlight_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
@@ -117,9 +117,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         ),
         title: Text(
           'Publicação',
-          style: GoogleFonts.inter(
+          style: context.typography.titleLarge.copyWith(
             color: context.colors.textPrimary,
-            fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
@@ -153,8 +152,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             imageUrl: imagens[index],
                             fit: BoxFit.cover,
                             memCacheWidth: imagemCacheWidth,
-                            fadeInDuration: Duration.zero,
-                            fadeOutDuration: Duration.zero,
+                            fadeInDuration: AppMotion.imageFade,
+                            fadeOutDuration: AppMotion.imageFade,
                             errorWidget: (context, url, error) {
                               return Container(
                                 color: Colors.white12,
@@ -218,10 +217,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     const SizedBox(width: 6),
                     Text(
                       '${highlight.totalCurtidas}',
-                      style: TextStyle(
+                      style: context.typography.titleMedium.copyWith(
                         color: context.colors.textPrimary,
                         fontSize: 15,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -233,10 +231,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     const SizedBox(width: 6),
                     Text(
                       '${highlight.totalComentarios}',
-                      style: TextStyle(
+                      style: context.typography.titleMedium.copyWith(
                         color: context.colors.textPrimary,
                         fontSize: 15,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -248,10 +245,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                 if (highlight.legenda.isNotEmpty)
                   Text(
                     highlight.legenda,
-                    style: TextStyle(
+                    style: context.typography.bodyLarge.copyWith(
                       color: context.colors.textPrimary,
                       fontSize: 15,
-                      height: 1.4,
                     ),
                   ),
 
@@ -259,9 +255,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   const SizedBox(height: 12),
                   Text(
                     dataFormatada,
-                    style: TextStyle(
+                    style: context.typography.bodySmall.copyWith(
                       color: context.colors.textDisabled,
-                      fontSize: 13,
                     ),
                   ),
                 ],

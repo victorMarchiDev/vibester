@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/models/user/user_model.dart';
 import 'package:mobile/providers/user/user_provider.dart';
 import 'package:mobile/routes/app_routes.dart';
@@ -122,9 +121,8 @@ class _EmailConfirmScreenState extends State<EmailConfirmScreen> {
     final defaultTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: GoogleFonts.inter(
+      textStyle: context.typography.headlineSmall.copyWith(
         fontSize: 20,
-        fontWeight: FontWeight.w600,
         color: context.colors.ambar,
       ),
       decoration: BoxDecoration(
@@ -180,10 +178,8 @@ class _EmailConfirmScreenState extends State<EmailConfirmScreen> {
 
             Text(
               'Verifique seu email',
-              style: GoogleFonts.inter(
+              style: context.typography.displayLarge.copyWith(
                 color: context.colors.textPrimary,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
               ),
             ),
 
@@ -193,16 +189,13 @@ class _EmailConfirmScreenState extends State<EmailConfirmScreen> {
                 children: [
                   TextSpan(
                     text: 'Enviamos um código de verificação para\n',
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                    style: context.typography.titleMedium.copyWith(
                       color: context.colors.grey,
                     ),
                   ),
                   TextSpan(
                     text: widget.email,
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
+                    style: context.typography.titleMedium.copyWith(
                       fontWeight: FontWeight.w700,
                       color: Colors.orange,
                     ),
@@ -210,9 +203,8 @@ class _EmailConfirmScreenState extends State<EmailConfirmScreen> {
                   TextSpan(
                     text:
                         '\n\nVerifique sua caixa de entrada e insira o\ncódigo abaixo para ativar sua conta ',
-                    style: GoogleFonts.inter(
+                    style: context.typography.bodyMedium.copyWith(
                       color: context.colors.grey,
-                      fontSize: 14,
                     ),
                   ),
                 ],

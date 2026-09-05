@@ -19,9 +19,7 @@ class PriceIndicator extends StatelessWidget {
       children: List.generate(3, (index) {
         return Text(
           '\$',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
+          style: context.typography.titleSmall.copyWith(
             color: index < _quantidade
                 ? context.colors.textPrimary
                 : context.colors.textDisabled,

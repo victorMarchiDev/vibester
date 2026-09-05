@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/theme/theme_extensions.dart';
+import 'package:mobile/widgets/motion/word_reveal_text.dart';
 
 // ===========================================================================
 // ONBOARDING 3 — PERFIL E FAVORITOS
@@ -12,15 +13,10 @@ class FinalOnboardingScreen extends StatefulWidget {
   /// Acao do botao "Comecar". Ainda nao definida — fica nula por enquanto.
   final VoidCallback? onStart;
 
-  const FinalOnboardingScreen({
-    super.key,
-    required this.onBack,
-    this.onStart,
-  });
+  const FinalOnboardingScreen({super.key, required this.onBack, this.onStart});
 
   @override
-  State<FinalOnboardingScreen> createState() =>
-      _FinalOnboardingScreenState();
+  State<FinalOnboardingScreen> createState() => _FinalOnboardingScreenState();
 }
 
 class _FinalOnboardingScreenState extends State<FinalOnboardingScreen> {
@@ -57,14 +53,10 @@ class _FinalOnboardingScreenState extends State<FinalOnboardingScreen> {
               const SizedBox(height: 28),
 
               // ---------- título ----------
-              Text(
-                'Salve os rolês que você não quer perder',
-                style: TextStyle(
+              WordRevealText(
+                text: 'Salve os rolês que você não quer perder',
+                style: context.typography.headlineLarge.copyWith(
                   color: context.colors.textPrimary,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  height: 1.15,
-                  letterSpacing: -0.4,
                 ),
               ),
 
@@ -73,9 +65,8 @@ class _FinalOnboardingScreenState extends State<FinalOnboardingScreen> {
               // ---------- texto explicativo ----------
               Text(
                 'Favorite seus lugares e monte um perfil com a sua vibe.',
-                style: TextStyle(
+                style: context.typography.bodyMedium.copyWith(
                   color: context.colors.grey,
-                  fontSize: 14.5,
                   height: 1.55,
                 ),
               ),
@@ -137,9 +128,8 @@ class _ImagePlaceholder extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 label,
-                style: TextStyle(
+                style: context.typography.bodySmall.copyWith(
                   color: context.colors.grey,
-                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -294,10 +284,9 @@ class _GradientButton extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: context.typography.titleMedium.copyWith(
                     color: Colors.white,
                     fontSize: 14.5,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(width: 7),
